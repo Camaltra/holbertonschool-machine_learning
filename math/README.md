@@ -22,7 +22,7 @@ As the school ask to code with the following version, it could be that some synt
 * Pycodestyle 2.5
 * Scipy 1.3
 
-As something to not, most of the time we can't type our functions and the code. Here is why there are often no typing on all files
+As something to note, most of the time we can't type our functions and the code. Here is why there are often no typing on all files
 
 ## Content
 Find the following content through this folder
