@@ -5,6 +5,12 @@
 
 
 def np_slice(matrix, axes: dict):
+    """
+    Mirror the np slicing
+    :param matrix: The given python matrix
+    :param axes: Dict of slice axes
+    :return: The sliced matrix
+    """
     if axes is None:
         axes = {}
     max_axes_idx_range = max(axes) + 1
