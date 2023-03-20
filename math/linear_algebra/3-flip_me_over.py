@@ -3,7 +3,7 @@
 """Useless comments"""
 
 
-def matrix_transpose(matrix: list | None) -> list:
+def matrix_transpose(matrix):
     """
     Transpose a matrix
     :param matrix: A given Matrix

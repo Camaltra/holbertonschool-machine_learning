@@ -4,10 +4,7 @@
 """Useless comment"""
 
 
-def cat_arrays(
-        first_array: list[int, float] | None,
-        second_array: list[int, float] | None,
-) -> list[int, float]:
+def cat_arrays(first_array, second_array):
     """
     Concat two array
     :param first_array: The first given array

@@ -6,10 +6,7 @@
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 
-def add_matrices2D(
-        first_matrix: list | None,
-        second_matrix: list | None,
-) -> list | None:
+def add_matrices2D(first_matrix, second_matrix):
     """
     Add two matrices
     :param first_matrix: The first matrix

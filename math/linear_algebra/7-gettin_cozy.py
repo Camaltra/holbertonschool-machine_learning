@@ -4,11 +4,7 @@
 """Useless comment"""
 
 
-def cat_matrices2D(
-        first_matrix: list,
-        second_matrix: list,
-        axis: int = 0,
-) -> list | None:
+def cat_matrices2D(first_matrix, second_matrix, axis: int = 0):
     """
     Return the concat of two matrix depend on specific axis.
     Supposed that the matrices are not None

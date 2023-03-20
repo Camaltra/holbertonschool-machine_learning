@@ -7,10 +7,7 @@
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 
-def add_arrays(
-        first_array: list | None,
-        second_array: list | None,
-) -> list | None:
+def add_arrays(first_array, second_array):
     """
     Add two array of the same size
     :param first_array: The fist array

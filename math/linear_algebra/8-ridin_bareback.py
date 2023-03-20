@@ -7,10 +7,7 @@
 matrix_shape = __import__('2-size_me_please').matrix_shape
 
 
-def mat_mul(
-        first_matrix: list[list],
-        second_matrix: list[list],
-) -> list[list] | None:
+def mat_mul(first_matrix, second_matrix):
     """
     Multiply tzo python matrix
     :param first_matrix: The first matrix
