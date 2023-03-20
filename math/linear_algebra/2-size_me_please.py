@@ -2,8 +2,10 @@
 
 """Useless Comment"""
 
+from typing import List
 
-def matrix_shape(matrix: list | None) -> list:
+
+def matrix_shape(matrix: List | None) -> List:
     """
     Get the shape of a given matrix
     :param matrix: A python list
