@@ -17,7 +17,6 @@ def _add_matrices(first_matrix, second_matrix):
     output_array = []
     for i in range(len(first_matrix)):
         if isinstance(first_matrix[i], list):
-            print(first_matrix[i])
             sub_array = _add_matrices(first_matrix[i], second_matrix[i])
             output_array.append(sub_array)
         else:
