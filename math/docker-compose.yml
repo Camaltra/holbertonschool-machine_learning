@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  math:
+    build: .
+    container_name: math
+    volumes:
+      - .:/app
