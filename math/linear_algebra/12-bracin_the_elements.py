@@ -3,20 +3,15 @@
 
 """Useless comment"""
 
-import numpy as np
 
-
-def np_elementwise(
-        first_matrix: np.ndarray,
-        second_matrix: np.ndarray
-) -> tuple[np.ndarray]:
+def np_elementwise(first_matrix, second_matrix) -> tuple:
     """
     Perfom different operation through numpy
     :param first_matrix: The fist matrix
     :param second_matrix: The second matrix
     :return: All the perfomer operation
     """
-    return (np.add(first_matrix, second_matrix),
-            np.subtract(first_matrix, second_matrix),
-            np.multiply(first_matrix, second_matrix),
-            np.divide(first_matrix, second_matrix))
+    return (first_matrix + second_matrix,
+            first_matrix - second_matrix,
+            first_matrix * second_matrix,
+            first_matrix / second_matrix)

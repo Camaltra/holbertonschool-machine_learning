@@ -4,10 +4,7 @@
 """Useless comment"""
 
 
-import numpy as np
-
-
-def np_transpose(matrix: np.ndarray):
+def np_transpose(matrix):
     """
     Transpose an np array
     :param matrix: The np array

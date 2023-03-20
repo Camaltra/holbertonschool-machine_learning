@@ -4,13 +4,10 @@
 """Useless comment"""
 
 
-import numpy as np
-
-
-def np_shape(matrix: np.ndarray) -> tuple:
+def np_shape(matrix) -> tuple:
     """
     Get the size of the np array
     :param matrix: The np array
     :return: The shape of the np array
     """
-    return np.shape(matrix)
+    return matrix.shape
