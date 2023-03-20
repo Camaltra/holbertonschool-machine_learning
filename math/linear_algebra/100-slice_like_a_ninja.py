@@ -4,7 +4,7 @@
 """Useless comment"""
 
 
-def np_slice(matrix, axes: dict[int, int | None] | None):
+def np_slice(matrix, axes: dict):
     if axes is None:
         axes = {}
     max_axes_idx_range = max(axes) + 1
