@@ -18,12 +18,26 @@ def _get_matrix_dim(matrix) -> int:
 
 
 def is_concatenable(first_matrix, second_matrix, axis: int) -> bool:
+    """
+    Check is two matrices can be concatante
+    :param first_matrix: The first matrix
+    :param second_matrix: The second matrix
+    :param axis: The axis on where we want perform the concat
+    :return: True or false
+    """
     first_matrix_dim = _get_matrix_dim(first_matrix)
     second_matrix_dim = _get_matrix_dim(second_matrix)
+    first_matrix_shape = matrix_shape(first_matrix)
+    second_matrix_shape = matrix_shape(second_matrix)
     if first_matrix_dim != second_matrix_dim:
         return False
     if min(first_matrix_dim, second_matrix_dim) < axis + 1:
         return False
+    for i in range(first_matrix_dim):
+        if i == axis:
+            continue
+        if first_matrix_shape[i] != second_matrix_shape[i]:
+            return False
     return True
 
 
