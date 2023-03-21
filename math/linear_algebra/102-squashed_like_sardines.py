@@ -17,6 +17,16 @@ def _get_matrix_dim(matrix) -> int:
     return len(matrix_shape(matrix))
 
 
+def is_concatenable(first_matrix, second_matrix, axis: int) -> bool:
+    first_matrix_dim = _get_matrix_dim(first_matrix)
+    second_matrix_dim = _get_matrix_dim(second_matrix)
+    if first_matrix_dim != second_matrix_dim:
+        return False
+    if min(first_matrix_dim, second_matrix_dim) < axis + 1:
+        return False
+    return True
+
+
 def _cat_matrices(first_matrix, second_matrix, axis: int):
     """
     Recusive function that concat two given matrices
@@ -45,8 +55,6 @@ def cat_matrices(first_matrix, second_matrix, axis: int = 0):
     :param axis: The axis on where we want perform the concat
     :return: The concat matrix
     """
-    first_matrix_dim = _get_matrix_dim(first_matrix)
-    second_matrix_dim = _get_matrix_dim(second_matrix)
-    if min(first_matrix_dim, second_matrix_dim) < axis:
+    if not is_concatenable(first_matrix, second_matrix, axis):
         return None
     return _cat_matrices(first_matrix, second_matrix, axis)
