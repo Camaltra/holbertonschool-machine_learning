@@ -17,7 +17,7 @@ def _get_matrix_dim(matrix) -> int:
     return len(matrix_shape(matrix))
 
 
-def is_concatenable(first_matrix, second_matrix, axis: int) -> bool:
+def _is_concatenable(first_matrix, second_matrix, axis: int) -> bool:
     """
     Check is two matrices can be concatante
     :param first_matrix: The first matrix
@@ -69,6 +69,6 @@ def cat_matrices(first_matrix, second_matrix, axis: int = 0):
     :param axis: The axis on where we want perform the concat
     :return: The concat matrix
     """
-    if not is_concatenable(first_matrix, second_matrix, axis):
+    if not _is_concatenable(first_matrix, second_matrix, axis):
         return None
     return _cat_matrices(first_matrix, second_matrix, axis)
