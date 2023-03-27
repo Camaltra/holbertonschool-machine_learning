@@ -21,6 +21,7 @@ def poly_integral(polynome, C=0):
     primitive = [0] * (len(polynome) + 1)
     for idx in range(len(polynome) - 1, -1, -1):
         idx_result = polynome[idx] / (idx + 1)
-        primitive[idx + 1] = int(idx_result) if idx_result % 1 == 0 else idx_result
+        primitive[idx + 1] = int(idx_result) if idx_result % 1 == 0 \
+            else idx_result
     primitive[0] = C
     return primitive
