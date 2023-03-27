@@ -9,4 +9,6 @@ def summation_i_squared(n):
     :param n: The number of iteration
     :return: What the function say
     """
-    return sum(value**2 for value in range(n + 1))
+    if n == 1:
+        return 1
+    return summation_i_squared(n - 1) + n**2
