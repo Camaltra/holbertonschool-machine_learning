@@ -9,6 +9,7 @@ def summation_i_squared(n):
     :param n: The number of iteration
     :return: What the function say
     """
-    if n == 1:
-        return 1
-    return summation_i_squared(n - 1) + n**2
+    if not isinstance(n, int) or n < 1:
+        return None
+
+    return int(n * (n + 1) * (2 * n + 1) / 6)
