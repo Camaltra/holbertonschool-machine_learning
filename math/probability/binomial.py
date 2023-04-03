@@ -34,7 +34,7 @@ def _check_n(n):
     """
     Plese this mandatory comment are useless omg
     """
-    if n < 0:
+    if n <= 0:
         raise ValueError("n must be a positive value")
 
 
@@ -42,7 +42,7 @@ def _check_p(p):
     """
     Plese this mandatory comment are useless omg
     """
-    if p < 0 or p > 1:
+    if p <= 0 or p >= 1:
         raise ValueError("p must be greater than 0 and less than 1")
 
 
@@ -77,7 +77,7 @@ class Binomial:
             _check_data(data)
             data_mean = sum(data) / len(data)
             data_var = sum([(x - data_mean) ** 2 for
-                            x in data]) / (len(data) - 1)
+                            x in data]) / (len(data))
             self.p = 1 - (data_var / data_mean)
             self.n = round(data_mean / self.p)
             self.p = data_mean / self.n
