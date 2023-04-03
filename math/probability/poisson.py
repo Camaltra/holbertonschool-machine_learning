@@ -71,7 +71,7 @@ class Poisson:
         :param k: The probability need to be checked P(X=k)
         :return: Return 0 if k is out of range, else the result of the pmf
         """
-        if isinstance(k, int):
+        if not isinstance(k, int):
             k = int(k)
         if k < 0:
             return 0
@@ -83,7 +83,7 @@ class Poisson:
         :param k: The probability to be checked such as P(X<=k)
         :return: 0 if k out of range, ele the result of the cdf
         """
-        if isinstance(k, int):
+        if not isinstance(k, int):
             k = int(k)
         if k < 0:
             return 0
