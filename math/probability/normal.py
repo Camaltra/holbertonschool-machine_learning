@@ -39,9 +39,7 @@ def _check_data(data):
 
 def sqrt(x):
     """
-    Calculate the sqrt of a num
-    :param x:
-    :return:
+    Plese this mandatory comment are useless omg
     """
     if x < 0:
         raise ValueError("The number can't be negative")
@@ -88,9 +86,19 @@ class Normal:
             self.stddev = float(get_list_stddev(data))
 
     def z_score(self, x):
+        """
+        Get the z score from the x value
+        :param x: The x value
+        :return: The z score
+        """
         return (x - self.mean) / self.stddev
 
     def x_value(self, z):
+        """
+        Get the x value from the z value
+        :param z: The z value
+        :return: The x value
+        """
         return (z * self.stddev) + self.mean
 
     def pdf(self, x):
