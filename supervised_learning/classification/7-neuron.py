@@ -174,8 +174,8 @@ class Neuron:
         if verbose:
             _check_step(step, iterations)
         for i in range(iterations + 1):
-            self.forward_prop(X)
-            self.gradient_descent(X, Y, self.A, alpha=alpha)
+            predictions_matrix = self.forward_prop(X)
+            self.gradient_descent(X, Y, predictions_matrix, alpha=alpha)
             if i % step == 0 or i == iterations:
                 current_cost = self.cost(Y, self.A)
                 if verbose:
