@@ -133,7 +133,7 @@ class Neuron:
         :param alpha: The learning rate
         :return: Nothing, just set the value to private variables
         """
-        num_of_sample = self.A.shape[1]
+        num_of_sample = A.shape[1]
         self.__W = self.W - alpha * np.dot((A - Y), X.T) / num_of_sample
         self.__b = self.b - alpha * np.sum(A - Y) / num_of_sample
 
