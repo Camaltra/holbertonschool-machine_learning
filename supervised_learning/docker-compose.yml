@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  classification:
+    build: ./classification
+    container_name: classification
+    volumes:
+      - .:/app
