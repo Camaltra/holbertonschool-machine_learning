@@ -51,7 +51,7 @@ class Neuron:
         return self.__b
 
     @property
-    def A(self) -> int | np.ndarray:
+    def A(self):
         """
         Get the private attribe A
         :return: Private attribe A

@@ -89,7 +89,7 @@ class Neuron:
         return self.__b
 
     @property
-    def A(self) -> int | np.ndarray:
+    def A(self):
         """
         Get the private attribe A
         :return: Private attribe A
@@ -137,7 +137,8 @@ class Neuron:
         preds = np.where(self.A < 0.5, 0, 1)
         return preds, self.cost(Y, self.A)
 
-    def gradient_descent(self, X, Y, A, alpha=0.05):
+    def gradient_descent(self, X: np.ndarray, Y: np.ndarray,
+                         A: np.ndarray, alpha: int = 0.05):
         """
         Make the gradient descent on the neurone
         :param X: The data set
