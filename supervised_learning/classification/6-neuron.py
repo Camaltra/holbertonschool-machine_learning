@@ -149,7 +149,7 @@ class Neuron:
         """
         _check_iterations(iterations)
         _check_alpha(alpha)
-        for _ in range(iterations + 1):
+        for _ in range(iterations):
             predictions_matrix = self.forward_prop(X)
             self.gradient_descent(X, Y, predictions_matrix, alpha=alpha)
         return self.evaluate(X, Y)
