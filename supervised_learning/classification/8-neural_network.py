@@ -30,6 +30,7 @@ def _check_nodes(nodes: int) -> None:
 
 
 class NeuralNetwork:
+    """Neural network interface"""
     def __init__(self, nx: int, nodes: int):
         """
         Init the class
@@ -41,7 +42,7 @@ class NeuralNetwork:
         self.nx = nx
         self.nodes = nodes
         self.W1 = np.random.normal(size=(self.nodes, self.nx))
-        self.b1 = 0
+        self.b1 = np.zeros((self.nodes, 1))
         self.A1 = 0
         self.W2 = np.random.normal(size=(1, self.nodes))
         self.b2 = 0
