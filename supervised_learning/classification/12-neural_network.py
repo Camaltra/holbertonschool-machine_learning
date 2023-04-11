@@ -116,7 +116,6 @@ class NeuralNetwork:
         :param X: The data fron the input layer
         :return: The output data of the neural network
         """
-        print(X.shape)
         layer_one = {"inputs": X, "weights": self.W1, "bias": self.b1}
         self.__A1 = self._compute_forward_prop_layer(**layer_one)
         layer_two = {"inputs": self.A1, "weights": self.W2, "bias": self.b2}
