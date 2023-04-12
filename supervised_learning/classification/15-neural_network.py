@@ -207,22 +207,6 @@ class NeuralNetwork:
         self.__W1 = self.W1 - alpha * dW1
         self.__b1 = self.b1 - alpha * db1
 
-    def train(self, X, Y, iterations=5000, alpha=0.05):
-        """
-        Train the model
-        :param X: The data set
-        :param Y: The thruth label
-        :param iterations: The number of iterations
-        :param alpha: The learning rate
-        :return: The model evaluation
-        """
-        _check_iterations(iterations)
-        _check_alpha(alpha)
-        for _ in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(X, Y, self.A1, self.A2, alpha)
-        return self.evaluate(X, Y)
-
     def train(self, X: np.ndarray, Y: np.ndarray, iterations: int = 5000,
               alpha: float = 0.05, verbose: bool = True, graph: bool = True,
               step: int = 100):
