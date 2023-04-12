@@ -187,6 +187,6 @@ class DeepNeuralNetwork:
         _check_iterations(iterations)
         _check_alpha(alpha)
         for _ in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(Y, self.cache, alpha)
+            _, cache = self.forward_prop(X)
+            self.gradient_descent(Y, cache, alpha)
         return self.evaluate(X, Y)
