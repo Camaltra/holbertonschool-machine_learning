@@ -13,4 +13,6 @@ def one_hot_decode(Y):
     """
     if not isinstance(Y, np.ndarray):
         return None
+    if len(Y) == 0 or len(Y.shape) != 2:
+        return None
     return np.argmax(Y, axis=0)
