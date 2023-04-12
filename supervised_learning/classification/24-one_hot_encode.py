@@ -14,4 +14,4 @@ def one_hot_encode(Y, classes):
     """
     one_hot_matrix = np.zeros((Y.size, classes))
     one_hot_matrix[np.arange(Y.size), Y] = 1
-    return one_hot_matrix
+    return one_hot_matrix.T

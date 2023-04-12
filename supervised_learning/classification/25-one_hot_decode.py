@@ -12,6 +12,6 @@ def one_hot_decode(Y):
     :return: The decoded matrix
     """
     decoded_list = []
-    for row in Y:
+    for row in Y.T:
         decoded_list.append(row.argmax())
     return np.array(decoded_list)
