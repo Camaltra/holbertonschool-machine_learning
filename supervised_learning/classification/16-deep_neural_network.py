@@ -49,7 +49,7 @@ class DeepNeuralNetwork:
         for layer_idx in range(self.L):
             # OMG I WANNA DIE WHY WE CAN'T USE ONLY ONE FOR ??
             if layers[layer_idx] <= 0:
-                raise ValueError("layers must be a list of positive integers")
+                raise TypeError("layers must be a list of positive integers")
             current_weight_key = "W{}".format(layer_idx + 1)
             current_bias_key = "b{}".format(layer_idx + 1)
             if layer_idx == 0:
