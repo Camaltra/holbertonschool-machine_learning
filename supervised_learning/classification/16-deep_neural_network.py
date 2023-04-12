@@ -25,8 +25,9 @@ def _check_layers(layers: int) -> None:
     """
     if not isinstance(layers, list):
         raise TypeError("layers must be a list of positive integers")
-    # if not all(nodes > 0 for nodes in layers):
-    #     raise ValueError("layers must be a list of positive integers")
+    # Can't use the for loop here omg this is so stupid
+    ''' if not all(nodes > 0 for nodes in layers):
+          raise ValueError("layers must be a list of positive integers")'''
 
 
 class DeepNeuralNetwork:
