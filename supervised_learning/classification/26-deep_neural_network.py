@@ -239,7 +239,7 @@ class DeepNeuralNetwork:
         if filename[-4:] != ".pkl":
             filename += ".pkl"
         with open(filename, 'wb') as file:
-            pickle.dump(self, file, pickle.HIGHEST_PROTOCOL)
+            pickle.dump(self, file)
 
     @staticmethod
     def load(filename):
@@ -248,6 +248,8 @@ class DeepNeuralNetwork:
         :param filename: Filename
         :return: The loaded model
         """
-        with open(filename, 'rb') as file:
-            model = pickle.load(file)
-        return model or None
+        try:
+            with open(filename, "rb") as file:
+                return pickle.load(file)
+        except FileNotFoundError:
+            return None
