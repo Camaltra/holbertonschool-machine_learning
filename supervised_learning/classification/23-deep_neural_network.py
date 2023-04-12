@@ -61,14 +61,16 @@ def _check_layers(layers: int) -> None:
     :param layers: The list of number of node in each layers
     :return: Nothing but raise exception if not good value
     """
-    if not isinstance(layers, list):
+    if not isinstance(layers, list) or len(layers) == 0:
         raise TypeError("layers must be a list of positive integers")
-    if not all(nodes > 0 for nodes in layers):
-        raise ValueError("layers must be a list of positive integers")
+    """ Can't use the for loop here omg this is so stupid """
+    """ if not all(nodes > 0 for nodes in layers):
+          raise ValueError("layers must be a list of positive integers")"""
 
 
 class DeepNeuralNetwork:
     """Deep neural network interface"""
+
     def __init__(self, nx, layers):
         """
         Init the deep neural network and use a dict to store data
@@ -84,6 +86,9 @@ class DeepNeuralNetwork:
         self.__cache = {}
         self.__weights = {}
         for layer_idx in range(self.L):
+            # OMG I WANNA DIE WHY WE CAN'T USE ONLY ONE FOR ??
+            if layers[layer_idx] <= 0:
+                raise TypeError("layers must be a list of positive integers")
             current_weight_key = "W{}".format(layer_idx + 1)
             current_bias_key = "b{}".format(layer_idx + 1)
             if layer_idx == 0:
