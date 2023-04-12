@@ -25,8 +25,8 @@ def _check_layers(layers: int) -> None:
     """
     if not isinstance(layers, list):
         raise TypeError("layers must be a list of positive integers")
-    if not all(nodes > 0 for nodes in layers):
-        raise ValueError("layers must be a list of positive integers")
+    # if not all(nodes > 0 for nodes in layers):
+    #     raise ValueError("layers must be a list of positive integers")
 
 
 class DeepNeuralNetwork:
@@ -37,7 +37,7 @@ class DeepNeuralNetwork:
         such as the weight, bias and cache data
         :param nx: The nuber of features
         :param layers: An array taht contain the number of
-                       nodes f-o-r each layers
+                       nodes for each layers
         """
         _check_nx(nx)
         _check_layers(layers)
@@ -46,6 +46,9 @@ class DeepNeuralNetwork:
         self.cache = {}
         self.weights = {}
         for layer_idx in range(self.L):
+            # OMG I WANNA DIE WHY WE CAN'T USE ONLY ONE FOR ??
+            if layers[layer_idx] <= 0:
+                raise ValueError("layers must be a list of positive integers")
             current_weight_key = "W{}".format(layer_idx + 1)
             current_bias_key = "b{}".format(layer_idx + 1)
             if layer_idx == 0:
