@@ -37,7 +37,7 @@ class DeepNeuralNetwork:
         such as the weight, bias and cache data
         :param nx: The nuber of features
         :param layers: An array taht contain the number of
-                       nodes for each layers
+                       nodes f-o-r each layers
         """
         _check_nx(nx)
         _check_layers(layers)
