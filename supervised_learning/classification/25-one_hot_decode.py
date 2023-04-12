@@ -13,7 +13,4 @@ def one_hot_decode(Y):
     """
     if not isinstance(Y, np.ndarray):
         return None
-    decoded_list = []
-    for row in Y.T:
-        decoded_list.append(row.argmax())
-    return np.array(decoded_list)
+    return np.argmax(Y, axis=0)
