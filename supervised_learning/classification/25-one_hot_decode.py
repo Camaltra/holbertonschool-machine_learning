@@ -11,6 +11,8 @@ def one_hot_decode(Y):
     :param Y: The encoded matrix
     :return: The decoded matrix
     """
+    if not isinstance(Y, np.ndarray):
+        return None
     decoded_list = []
     for row in Y.T:
         decoded_list.append(row.argmax())
