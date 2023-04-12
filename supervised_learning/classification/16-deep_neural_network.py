@@ -23,7 +23,7 @@ def _check_layers(layers: int) -> None:
     :param layers: The list of number of node in each layers
     :return: Nothing but raise exception if not good value
     """
-    if not isinstance(layers, list):
+    if not isinstance(layers, list) or len(layers) == 0:
         raise TypeError("layers must be a list of positive integers")
     """ Can't use the for loop here omg this is so stupid """
     """ if not all(nodes > 0 for nodes in layers):
