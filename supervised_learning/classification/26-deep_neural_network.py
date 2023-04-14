@@ -214,7 +214,8 @@ class DeepNeuralNetwork:
             _check_step(step, iterations)
         for i in range(iterations + 1):
             A, _ = self.forward_prop(X)
-            self.gradient_descent(Y, self.cache, alpha)
+            if i != iterations:
+                self.gradient_descent(Y, self.cache, alpha)
             if i % step == 0 or i == iterations:
                 current_cost = self.cost(Y, A)
                 if verbose:
