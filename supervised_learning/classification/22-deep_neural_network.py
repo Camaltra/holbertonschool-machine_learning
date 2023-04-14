@@ -115,7 +115,7 @@ class DeepNeuralNetwork:
             input_key = "A{}".format(layer_idx)
             weight_key = "W{}".format(layer_idx + 1)
             bias_key = "b{}".format(layer_idx + 1)
-            z = np.dot(
+            z = np.matmul(
                 self.weights.get(weight_key),
                 self.cache.get(input_key)
             ) + self.weights.get(bias_key)
@@ -165,7 +165,7 @@ class DeepNeuralNetwork:
             previous_preds_key = "A{}".format(layer_idx - 1)
             previous_preds = self.cache.get(previous_preds_key)
 
-            dW = np.dot(dZ, previous_preds.T) / num_of_sample
+            dW = np.matmul(dZ, previous_preds.T) / num_of_sample
             db = np.sum(dZ, axis=1, keepdims=True) / num_of_sample
 
             self.__weights[current_weight_key] = current_weight - alpha * dW
@@ -186,7 +186,8 @@ class DeepNeuralNetwork:
         """
         _check_iterations(iterations)
         _check_alpha(alpha)
-        for _ in range(iterations):
+        for i in range(iterations):
             _, cache = self.forward_prop(X)
-            self.gradient_descent(Y, cache, alpha)
+            if i != iterations:
+                self.gradient_descent(Y, cache, alpha)
         return self.evaluate(X, Y)
