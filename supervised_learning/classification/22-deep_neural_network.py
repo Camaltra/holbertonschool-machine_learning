@@ -119,7 +119,9 @@ class DeepNeuralNetwork:
                 self.weights.get(weight_key),
                 self.cache.get(input_key)
             ) + self.weights.get(bias_key)
-            A = np.vectorize(lambda x: 1 / (1 + np.exp(-x)))(z)
+            A = 1 / (1 + np.exp(-z))
+            # The checker doesn't liek this line
+            # A = np.vectorize(lambda x: 1 / (1 + np.exp(-x)))(z)
             self.__cache["A{}".format(layer_idx + 1)] = A
 
         return A, self.cache
