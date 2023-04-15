@@ -81,7 +81,7 @@ def _check_layers(layers: int) -> None:
 
 class DeepNeuralNetwork:
     """Deep neural network interface"""
-    def __init__(self, nx, layers, activation="sig"):
+    def __init__(self, nx, layers, activation='sig'):
         """
         Init the deep neural network and use a dict to store data
         such as the weight, bias and cache data
@@ -91,7 +91,7 @@ class DeepNeuralNetwork:
         """
         _check_nx(nx)
         _check_layers(layers)
-        _check_activation(layers)
+        _check_activation(activation)
         self.__nx = nx
         self.__L = len(layers)
         self.__cache = {}
