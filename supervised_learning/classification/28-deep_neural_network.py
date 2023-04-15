@@ -13,7 +13,7 @@ def _check_activation(activation: str):
     :param activation: The activation parameter
     :return: Nothing
     """
-    if activation not in ["sig", "tanh"]:
+    if activation != "sig" and activation != "tanh":
         raise ValueError("activation must be 'sig' or 'tanh'")
 
 
