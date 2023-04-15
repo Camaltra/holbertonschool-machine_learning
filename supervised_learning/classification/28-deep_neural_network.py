@@ -8,7 +8,12 @@ import pickle
 
 
 def _check_activation(activation: str):
-    if activation not in {"sig", "tanh"}:
+    """
+    Check the activaiton parameter
+    :param activation: The activation parameter
+    :return: Nothing
+    """
+    if activation not in ["sig", "tanh"]:
         raise ValueError("activation must be 'sig' or 'tanh'")
 
 
