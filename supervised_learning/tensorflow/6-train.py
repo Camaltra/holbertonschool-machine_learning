@@ -35,43 +35,51 @@ def train(X_train,
     :param save_path: The path to save the file
     :return: The path where the model was saved
     """
-    x_placeholder, y_placeholder = create_placeholders(X_train.shape[1],
-                                                       Y_train.shape[1])
-    tf.add_to_collection("x_placeholder", x_placeholder)
-    tf.add_to_collection("y_placeholder", y_placeholder)
-    y_preds = forward_prop(x_placeholder, layer_sizes, activations)
-    tf.add_to_collection("y_preds", y_preds)
-    loss = calculate_loss(y_placeholder, y_preds)
-    tf.add_to_collection("loss", loss)
-    acc = calculate_accuracy(y_placeholder, y_preds)
-    tf.add_to_collection("acc", acc)
-    training = create_train_op(loss, alpha)
-    tf.add_to_collection("training", training)
-    init = tf.global_variables_initializer()
+    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
+    y_pred = forward_prop(x, layer_sizes, activations)
+    loss = calculate_loss(y, y_pred)
+    accuracy = calculate_accuracy(y, y_pred)
+    train_op = create_train_op(loss, alpha)
+
+    tf.add_to_collection('x', x)
+    tf.add_to_collection('y', y)
+    tf.add_to_collection('y_pred', y_pred)
+    tf.add_to_collection('loss', loss)
+    tf.add_to_collection('accuracy', accuracy)
+    tf.add_to_collection('train_op', train_op)
+
+    # Add an op to initialize the variables.
+    init_op = tf.global_variables_initializer()
+
+    # Add ops to save and restore all the variables.
     saver = tf.train.Saver()
+
     with tf.Session() as session:
-        session.run(init)
-        for iteration in range(iterations + 1):
-            loss_train = session.run(loss,
-                                     feed_dict={x_placeholder: X_train,
-                                                y_placeholder: Y_train})
-            acc_train = session.run(acc,
-                                    feed_dict={x_placeholder: X_train,
-                                               y_placeholder: Y_train})
-            loss_valid = session.run(loss,
-                                     feed_dict={x_placeholder: X_valid,
-                                                y_placeholder: Y_valid})
-            acc_valid = session.run(acc,
-                                    feed_dict={x_placeholder: X_valid,
-                                               y_placeholder: Y_valid})
-            if iteration % 100 == 0 or iteration == iterations:
-                print("After {} iterations:".format(iteration))
-                print("\tTraining Cost: {}".format(loss_train))
-                print("\tTraining Accuracy: {}".format(acc_train))
-                print("\tValidation Cost: {}".format(loss_valid))
-                print("\tValidation Accuracy: {}".format(acc_valid))
-            if iteration < iterations:
-                session.run(training, feed_dict={x_placeholder: X_train,
-                                                 y_placeholder: Y_train})
+        session.run(init_op)
+
+        for i in range(iterations + 1):
+            training_cost = session.run(
+                loss,
+                feed_dict={x: X_train, y: Y_train})
+            training_accuracy = session.run(
+                accuracy,
+                feed_dict={x: X_train, y: Y_train})
+            validation_cost = session.run(
+                loss,
+                feed_dict={x: X_valid, y: Y_valid})
+            validation_accuracy = session.run(
+                accuracy,
+                feed_dict={x: X_valid, y: Y_valid})
+
+            if i % 100 == 0 or i == iterations:
+                print("After {} iterations:".format(i))
+                print("\tTraining Cost: {}".format(training_cost))
+                print("\tTraining Accuracy: {}".format(training_accuracy))
+                print("\tValidation Cost: {}".format(validation_cost))
+                print("\tValidation Accuracy: {}".format(validation_accuracy))
+
+            if i < iterations:
+                session.run(train_op, feed_dict={x: X_train, y: Y_train})
+
         save_path = saver.save(session, save_path)
     return save_path
