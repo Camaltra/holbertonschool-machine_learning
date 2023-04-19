@@ -47,8 +47,8 @@ def train(X_train,
     tf.add_to_collection("acc", acc)
     training = create_train_op(loss, alpha)
     tf.add_to_collection("training", training)
-    saver = tf.train.Saver()
     init = tf.global_variables_initializer()
+    saver = tf.train.Saver()
     with tf.Session() as session:
         session.run(init)
         for iteration in range(iterations + 1):
@@ -73,4 +73,6 @@ def train(X_train,
             if iteration < iterations:
                 session.run(training, feed_dict={x_placeholder: X_train,
                                                  y_placeholder: Y_train})
-        return saver.save(session, save_path)
+        test = saver.save(session, save_path)
+        print(test)
+        return test
