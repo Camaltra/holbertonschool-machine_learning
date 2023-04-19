@@ -37,6 +37,8 @@ def train(X_train,
     """
     x_placeholder, y_placeholder = create_placeholders(X_train.shape[1],
                                                        Y_train.shape[1])
+    tf.add_to_collection("x_placeholder", x_placeholder)
+    tf.add_to_collection("y_placeholder", y_placeholder)
     y_preds = forward_prop(x_placeholder, layer_sizes, activations)
     tf.add_to_collection("y_preds", y_preds)
     loss = calculate_loss(y_placeholder, y_preds)
