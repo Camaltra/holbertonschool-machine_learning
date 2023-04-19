@@ -68,6 +68,6 @@ def train(X_train,
             print("\tValidation Cost: {}".format(loss_valid))
             print("\tValidation Accuracy: {}".format(acc_valid))
         if iteration < iterations:
-            session.run(training, feed_dict={x_placeholder: X_valid,
-                                             y_placeholder: Y_valid})
+            session.run(training, feed_dict={x_placeholder: X_train,
+                                             y_placeholder: Y_train})
     return saver.save(session, save_path)
