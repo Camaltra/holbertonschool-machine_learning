@@ -49,8 +49,8 @@ def train(X_train,
     tf.add_to_collection("training", training)
     saver = tf.train.Saver()
     with tf.Session() as session:
+        session.run(tf.global_variables_initializer())
         for iteration in range(iterations + 1):
-            session.run(tf.global_variables_initializer())
             loss_train = session.run(loss,
                                      feed_dict={x_placeholder: X_train,
                                                 y_placeholder: Y_train})
