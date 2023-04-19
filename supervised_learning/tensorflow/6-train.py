@@ -61,13 +61,13 @@ def train(X_train,
             acc_valid = session.run(acc,
                                     feed_dict={x_placeholder: X_valid,
                                                y_placeholder: Y_valid})
-        if iteration % 100 == 0 or iteration == iterations:
-            print("After {} iterations:".format(iteration))
-            print("\tTraining Cost: {}".format(loss_train))
-            print("\tTraining Accuracy: {}".format(acc_train))
-            print("\tValidation Cost: {}".format(loss_valid))
-            print("\tValidation Accuracy: {}".format(acc_valid))
-        if iteration < iterations:
-            session.run(training, feed_dict={x_placeholder: X_train,
-                                             y_placeholder: Y_train})
+            if iteration % 100 == 0 or iteration == iterations:
+                print("After {} iterations:".format(iteration))
+                print("\tTraining Cost: {}".format(loss_train))
+                print("\tTraining Accuracy: {}".format(acc_train))
+                print("\tValidation Cost: {}".format(loss_valid))
+                print("\tValidation Accuracy: {}".format(acc_valid))
+            if iteration < iterations:
+                session.run(training, feed_dict={x_placeholder: X_train,
+                                                 y_placeholder: Y_train})
     return saver.save(session, save_path)
