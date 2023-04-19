@@ -36,15 +36,15 @@ def train(X_train,
     :return: The path where the model was saved
     """
     x, y = create_placeholders(X_train.shape[1],
-                                                       Y_train.shape[1])
+                               Y_train.shape[1])
     tf.add_to_collection("x", x)
     tf.add_to_collection("y", y)
     y_preds = forward_prop(x, layer_sizes, activations)
     tf.add_to_collection("y_preds", y_preds)
     loss = calculate_loss(y, y_preds)
     tf.add_to_collection("loss", loss)
-    acc = calculate_accuracy(y, y_preds)
-    tf.add_to_collection("acc", acc)
+    accuracy = calculate_accuracy(y, y_preds)
+    tf.add_to_collection("accuracy", accuracy)
     train_op = create_train_op(loss, alpha)
     tf.add_to_collection("train_op", train_op)
     init = tf.global_variables_initializer()
@@ -55,13 +55,13 @@ def train(X_train,
             loss_train = session.run(loss,
                                      feed_dict={x: X_train,
                                                 y: Y_train})
-            acc_train = session.run(acc,
+            acc_train = session.run(accuracy,
                                     feed_dict={x: X_train,
                                                y: Y_train})
             loss_valid = session.run(loss,
                                      feed_dict={x: X_valid,
                                                 y: Y_valid})
-            acc_valid = session.run(acc,
+            acc_valid = session.run(accuracy,
                                     feed_dict={x: X_valid,
                                                y: Y_valid})
             if iteration % 100 == 0 or iteration == iterations:
