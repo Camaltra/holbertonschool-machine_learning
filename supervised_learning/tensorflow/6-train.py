@@ -73,6 +73,5 @@ def train(X_train,
             if iteration < iterations:
                 session.run(training, feed_dict={x_placeholder: X_train,
                                                  y_placeholder: Y_train})
-        test = saver.save(session, save_path)
-        print(test)
-        return test
+        print("test")
+        return saver.save(session, save_path)
