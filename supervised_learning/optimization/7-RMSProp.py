@@ -4,6 +4,7 @@
 
 import numpy as np
 
+
 def update_variables_RMSProp(alpha, beta, epsilon, var, grad, s):
     """
 
