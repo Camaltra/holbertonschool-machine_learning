@@ -94,13 +94,13 @@ def train_mini_batch(
             if epoch_idx == epochs:
                 return saver.save(session, save_path)
 
-            x_train, y_train = suffle_data(x_train, y_train)
-            dataset_len = x_train.shape[0]
+            x_t, y_t = suffle_data(x_train, y_train)
+            dataset_len = x_t.shape[0]
             steps = [(i, i + batch_size) for i in
                      range(0, dataset_len, batch_size)]
             for step, (start, end) in enumerate(steps, start=1):
-                x_batch = x_train[start:end]
-                y_batch = y_train[start:end]
+                x_batch = x_t[start:end]
+                y_batch = y_t[start:end]
                 feed_dict = {x: x_batch, y: y_batch}
                 session.run(train_op, feed_dict=feed_dict)
                 if step % 100 == 0:
