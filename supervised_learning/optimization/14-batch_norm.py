@@ -15,8 +15,7 @@ def create_batch_norm_layer(prev, n, activation):
     """
     init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     dense_layer = tf.layers.Dense(units=n,
-                                  kernel_initializer=init,
-                                  activation=activation)
+                                  kernel_initializer=init)
 
     mean, variance = tf.nn.moments(prev, axes=[0])
 
@@ -27,4 +26,9 @@ def create_batch_norm_layer(prev, n, activation):
     normalized = tf.nn.batch_normalization(prev, mean, variance,
                                            shift, scale, epsilon)
 
-    return dense_layer(normalized)
+    output = normalized(prev)
+
+    if activation is not None:
+        output = activation(output)
+
+    return output
