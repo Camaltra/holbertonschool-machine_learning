@@ -26,7 +26,7 @@ def create_batch_norm_layer(prev, n, activation):
     normalized = tf.nn.batch_normalization(prev, mean, variance,
                                            shift, scale, epsilon)
 
-    output = normalized(prev)
+    output = dense_layer(normalized)
 
     if activation is not None:
         output = activation(output)
