@@ -2,8 +2,6 @@
 
 """Useless comment"""
 
-import numpy as np
-
 
 def update_variables_momentum(alpha, beta, var, grad, v):
     """
