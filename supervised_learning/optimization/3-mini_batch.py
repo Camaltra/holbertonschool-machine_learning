@@ -8,6 +8,10 @@ suffle_data = __import__('2-shuffle_data').shuffle_data
 
 
 def verbose_mini_batch(session, step, loss, accuracy, feed_dict):
+    """
+    Verbose the minibatch -- for all arg see in the main function
+    (Typing would be better here)
+    """
     loss_mini_batch = session.run(loss, feed_dict=feed_dict)
     accuracy_mini_batch = session.run(accuracy,
                                       feed_dict=feed_dict)
@@ -28,6 +32,10 @@ def verbose_epoch(
         x_test,
         y_test
 ):
+    """
+    Verbose the epoch -- for all arg see in the main function
+    (Typing would be better here)
+    """
     cost_train = session.run(loss, feed_dict={x: x_train, y: y_train})
     accuracy_train = session.run(accuracy,
                                  feed_dict={x: x_train, y: y_train})
@@ -68,16 +76,16 @@ def train_mini_batch(
                       model should be saved after training
     :return: The path where the model was saved
     """
-    with tf.compat.v1.Session() as session:
-        saver = tf.compat.v1.train.import_meta_graph(load_path + ".meta")
+    with tf.Session() as session:
+        saver = tf.train.import_meta_graph(load_path + ".meta")
         saver.restore(session, load_path)
 
-        x = tf.compat.v1.get_collection('x')[0]
-        y = tf.compat.v1.get_collection('y')[0]
+        x = tf.get_collection('x')[0]
+        y = tf.get_collection('y')[0]
 
-        accuracy = tf.compat.v1.get_collection('accuracy')[0]
-        loss = tf.compat.v1.get_collection('loss')[0]
-        train_op = tf.compat.v1.get_collection('train_op')[0]
+        accuracy = tf.get_collection('accuracy')[0]
+        loss = tf.get_collection('loss')[0]
+        train_op = tf.get_collection('train_op')[0]
 
         for epoch_idx in range(epochs):
             verbose_epoch(session, epoch_idx, x, y, loss,
