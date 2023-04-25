@@ -15,6 +15,6 @@ def batch_norm(Z, gamma, beta, epsilon):
     :param epsilon: A small number to avoid division by 0
     :return: The normalized batch
     """
-    mean, std = np.mean(Z, axis=0), np.std(Z, axis=0)
-    normilized_z = (Z - mean) / (std + epsilon)
+    mean, std = np.mean(Z, axis=0), np.var(Z, axis=0)
+    normilized_z = (Z - mean) / np.sqrt(std + epsilon)
     return gamma * normilized_z + beta
