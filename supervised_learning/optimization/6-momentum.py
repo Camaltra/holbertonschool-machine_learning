@@ -12,4 +12,5 @@ def create_momentum_op(loss, alpha, beta):
     :param beta: The momentum
     :return: The training momentum function
     """
-    return tf.train.MomentumOptimizer(learning_rate=alpha, momentum=beta).minimize(loss)
+    return tf.train.MomentumOptimizer(learning_rate=alpha,
+                                      momentum=beta).minimize(loss)
