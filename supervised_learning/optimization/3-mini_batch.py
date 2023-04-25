@@ -63,7 +63,7 @@ def train_mini_batch(
 
             x_train, y_train = suffle_data(X_train, Y_train)
             dataset_len = x_train.shape[0]
-            for i in range(0, dataset_len + 1, batch_size):
+            for i in range(0, dataset_len, batch_size):
                 start = i
                 end = i + batch_size if i + batch_size <= dataset_len else -1
                 x_batch = x_train[start:end]
