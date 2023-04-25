@@ -87,9 +87,12 @@ def train_mini_batch(
         loss = tf.get_collection('loss')[0]
         train_op = tf.get_collection('train_op')[0]
 
-        for epoch_idx in range(epochs):
+        for epoch_idx in range(epochs + 1):
             verbose_epoch(session, epoch_idx, x, y, loss,
                           accuracy, x_train, y_train, x_test, y_test)
+
+            if epoch_idx == epochs:
+                return saver.save(session, save_path)
 
             x_train, y_train = suffle_data(x_train, y_train)
             dataset_len = x_train.shape[0]
@@ -103,8 +106,3 @@ def train_mini_batch(
                 if step % 100 == 0:
                     verbose_mini_batch(session, step,
                                        loss, accuracy, feed_dict)
-
-        verbose_epoch(session, epoch_idx, x, y, loss,
-                      accuracy, x_train, y_train, x_test, y_test)
-
-        return saver.save(session, save_path)
