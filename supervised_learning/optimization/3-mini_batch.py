@@ -2,7 +2,6 @@
 
 """Useless comment"""
 
-import numpy as np
 import tensorflow as tf
 
 suffle_data = __import__('2-shuffle_data').shuffle_data
@@ -35,16 +34,16 @@ def train_mini_batch(
                       model should be saved after training
     :return: The path where the model was saved
     """
-    with tf.compat.v1.Session() as session:
-        saver = tf.compat.v1.train.import_meta_graph(load_path + ".meta")
+    with tf.Session() as session:
+        saver = tf.train.import_meta_graph(load_path + ".meta")
         saver.restore(session, load_path)
 
-        x = tf.compat.v1.get_collection('x')[0]
-        y = tf.compat.v1.get_collection('y')[0]
+        x = tf.get_collection('x')[0]
+        y = tf.get_collection('y')[0]
 
-        accuracy = tf.compat.v1.get_collection('accuracy')[0]
-        loss = tf.compat.v1.get_collection('loss')[0]
-        train_op = tf.compat.v1.get_collection('train_op')[0]
+        accuracy = tf.get_collection('accuracy')[0]
+        loss = tf.get_collection('loss')[0]
+        train_op = tf.get_collection('train_op')[0]
 
         for epoch_idx in range(epochs + 1):
             cost_train = session.run(loss, feed_dict={x: X_train, y: Y_train})
