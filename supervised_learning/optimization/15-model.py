@@ -232,7 +232,7 @@ def model(Data_train, Data_valid, layers, activations,
     accuracy = calculate_accuracy(y, y_pred)
     tf.add_to_collection("accuracy", accuracy)
 
-    global_step = tf.Variable(0)
+    global_step = tf.Variable(0, trainable=False)
     alpha_decay = learning_rate_decay(alpha, decay_rate, global_step, 1)
 
     train_op = create_Adam_op(loss, alpha_decay, beta1, beta2, epsilon)
@@ -251,6 +251,9 @@ def model(Data_train, Data_valid, layers, activations,
             if epoch_idx == epochs:
                 return saver.save(session, save_path)
 
+            session.run(global_step.assign(epoch_idx))
+            session.run(alpha_decay)
+
             x_t, y_t = shuffle_data(x_train, y_train)
             dataset_len = x_t.shape[0]
             steps = [(i, i + batch_size) for i in
@@ -263,5 +266,3 @@ def model(Data_train, Data_valid, layers, activations,
                 if step % 100 == 0:
                     verbose_mini_batch(session, step,
                                        loss, accuracy, feed_dict)
-
-            session.run(tf.assign(global_step, global_step + 1))
