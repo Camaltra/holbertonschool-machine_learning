@@ -19,7 +19,7 @@ def create_batch_norm_layer(prev, n, activation):
 
     output = dense_layer(prev)
 
-    mean, variance = tf.nn.moments(prev, axes=[0])
+    mean, variance = tf.nn.moments(output, axes=[0])
 
     scale = tf.Variable(tf.ones([n]))
     shift = tf.Variable(tf.zeros([n]))
