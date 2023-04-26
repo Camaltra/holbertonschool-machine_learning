@@ -77,12 +77,14 @@ def forward_prop(x, layers=[], activations=[]):
     :return: The final tensor
     """
     model_length = len(layers)
-    predictions = x
     for idx, layer, activation in enumerate(zip(layers, activations)):
+        if idx == 0:
+            predictions = create_layer(x, layer, activation)
         if idx == len(model_length) - 1:
             predictions = create_layer(predictions, layer, activation)
         else:
-            predictions = create_batch_norm_layer(predictions, layer, activation)
+            predictions = create_batch_norm_layer(predictions, layer,
+                                                  activation)
     return predictions
 
 
@@ -197,6 +199,22 @@ def model(Data_train, Data_valid, layers, activations,
           alpha=0.001, beta1=0.9, beta2=0.999,
           epsilon=1e-8, decay_rate=1, batch_size=32,
           epochs=5, save_path='/tmp/model.ckpt'):
+    """
+    Build, train and save a neural network model in tensorflow using
+    :param Data_train: A tuple containing the training data
+    :param Data_valid: A tuple containing the validation data
+    :param layers: A list containing the number of nodes in each layer
+    :param activations: A list containing the activation function
+    :param alpha: The learning rate
+    :param beta1: The momentum weight
+    :param beta2: The RMSProp weight
+    :param epsilon: A small number to avoid division by zero
+    :param decay_rate: The decay rate for inverse time decay
+    :param batch_size: The size of mini batch
+    :param epochs: The number of epochs
+    :param save_path: The path to save the model
+    :return: The path where the model was saved
+    """
     x_train, y_train = Data_train
     x_valid, y_valid = Data_valid
 
@@ -247,5 +265,3 @@ def model(Data_train, Data_valid, layers, activations,
                                        loss, accuracy, feed_dict)
 
             session.run(tf.assign(global_step, global_step + 1))
-
-        return saver.save(session, save_path)
