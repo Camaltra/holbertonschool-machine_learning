@@ -77,7 +77,7 @@ def forward_prop(x, layers=[], activations=[]):
     :return: The final tensor
     """
     model_length = len(layers)
-    for idx, layer, activation in enumerate(zip(layers, activations)):
+    for idx, (layer, activation) in enumerate(zip(layers, activations)):
         if idx == 0:
             predictions = create_layer(x, layer, activation)
         if idx == len(model_length) - 1:
