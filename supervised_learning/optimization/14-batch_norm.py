@@ -2,7 +2,7 @@
 
 """Useless comment"""
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def create_batch_norm_layer(prev, n, activation):
@@ -17,16 +17,16 @@ def create_batch_norm_layer(prev, n, activation):
     dense_layer = tf.layers.Dense(units=n,
                                   kernel_initializer=init)
 
+    output = dense_layer(prev)
+
     mean, variance = tf.nn.moments(prev, axes=[0])
 
     scale = tf.Variable(tf.ones([n]))
     shift = tf.Variable(tf.zeros([n]))
 
     epsilon = 1e-8
-    normalized = tf.nn.batch_normalization(prev, mean, variance,
-                                           shift, scale, epsilon)
-
-    output = dense_layer(normalized)
+    output = tf.nn.batch_normalization(output, mean, variance,
+                                       shift, scale, epsilon)
 
     if activation is not None:
         output = activation(output)
