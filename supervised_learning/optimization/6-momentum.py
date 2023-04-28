@@ -4,6 +4,7 @@
 
 import tensorflow as tf
 
+
 def create_momentum_op(loss, alpha, beta):
     """
     Define the training operator for the momentum
