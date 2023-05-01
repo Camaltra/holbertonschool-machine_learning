@@ -12,7 +12,6 @@ def create_confusion_matrix(labels, logits):
     :param logits: The predicted values in one hot array
     :return: The confusion matrix
     """
-    print(labels)
     m, n = labels.shape
     conf_matrix = np.zeros((n, n))
     for idx in range(m):
