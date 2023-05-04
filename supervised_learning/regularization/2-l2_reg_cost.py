@@ -12,4 +12,4 @@ def l2_reg_cost(cost):
     :param cost: The base cost of the neural network
     :return: The full cost (base cost + regularized cose)
     """
-    return cost + tf.losses.get_regularization_loss()
+    return cost + tf.losses.get_regularization_losses()

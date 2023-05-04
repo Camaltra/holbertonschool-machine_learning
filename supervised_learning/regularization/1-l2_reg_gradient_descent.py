@@ -31,9 +31,11 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
         dW = np.dot(dZ, previous_preds.T) / num_of_sample
         db = np.sum(dZ, axis=1, keepdims=True) / num_of_sample
 
-        weights[current_weight_key] = current_weight - alpha * (dW + (lambtha / num_of_sample) * current_weight)
+        l2_reg_param = (lambtha / num_of_sample) * current_weight
+
+        weights[current_weight_key] = current_weight - alpha * (dW + l2_reg_param)
         weights[current_bias_key] = current_bias - alpha * db
         if layer_idx > 1:
             dZ = np.dot(
                 current_weight.T, dZ
-            ) * (1 - (previous_preds - previous_preds))
+            ) * (1 - (previous_preds * previous_preds))
