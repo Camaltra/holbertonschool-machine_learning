@@ -15,7 +15,7 @@ def optimize_model(network, alpha, beta_1, beta_2):
     :return: Nothing
     """
     optimizer = K.optimizers.legacy.Adam(
-        lr=alpha, beta_1=beta_1, beta_2=beta_2
+        alpha, beta_1=beta_1, beta_2=beta_2
     )
     network.compile(
         optimizer=optimizer,
