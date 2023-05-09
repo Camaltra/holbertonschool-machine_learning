@@ -14,7 +14,7 @@ def optimize_model(network, alpha, beta_1, beta_2):
     :param beta_2: The second moment parameter
     :return: Nothing
     """
-    optimizer = K.optimizers.legacy.Adam(
+    optimizer = K.optimizers.Adam(
         alpha, beta_1=beta_1, beta_2=beta_2
     )
     network.compile(
