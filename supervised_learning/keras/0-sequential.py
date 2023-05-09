@@ -17,7 +17,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     :return: The created model
     """
     layers_sequence = []
-    regularize_l2 = K.regularizers.l2(l=lambtha)
+    regularize_l2 = K.regularizers.l2(lambtha)
     for index, (layer, activation) in enumerate(zip(layers, activations)):
         if index == 0:
             layers_sequence.append(
