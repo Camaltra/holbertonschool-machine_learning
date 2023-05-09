@@ -27,4 +27,4 @@ def load_config(filename):
     """
     with open(filename, "r") as f:
         loaded_network_json = f.read()
-    return loaded_network_json
+    return K.models.model_from_json(loaded_network_json)
