@@ -3,7 +3,7 @@
 """Useless comment"""
 
 import numpy as np
-
+from math import ceil
 
 def convolve_grayscale_same(images, kernel):
     """
@@ -15,8 +15,8 @@ def convolve_grayscale_same(images, kernel):
     m, h, w = images.shape
     kh, kw = kernel.shape
 
-    pad_height = int((kh - 1) / 2)
-    pad_width = int((kw - 1) / 2)
+    pad_height = ceil((kh - 1) / 2)
+    pad_width = ceil((kw - 1) / 2)
 
     output = np.zeros(shape=(m, h, w))
 
