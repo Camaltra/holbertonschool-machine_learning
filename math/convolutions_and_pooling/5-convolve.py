@@ -30,7 +30,7 @@ def convolve(images, kernel, padding='same', stride=(1, 1)):
     output_height = int((h - kh + 2 * pad_height) / stride_along_height + 1)
     output_width = int((w - kw + 2 * pad_width) / stride_along_width + 1)
 
-    output = np.zeros(shape=(m, output_height, output_width, ch))
+    output = np.zeros(shape=(m, output_height, output_width, nc))
 
     images_padded = np.pad(
         images,
@@ -45,7 +45,7 @@ def convolve(images, kernel, padding='same', stride=(1, 1)):
 
     for x in range(output_height):
         for y in range(output_width):
-            for n in range(ch):
+            for n in range(nc):
                 x_s = x * stride_along_height
                 y_s = y * stride_along_width
                 sub_image = images_padded[:, x_s:x_s + kh, y_s:y_s + kw, :]
