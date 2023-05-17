@@ -15,7 +15,8 @@ def lenet5(x, y):
     :param y: Is a `tf.placeholder` of shape (m, 10) containing
               the one-hot labels for the network
     :return: A tensor for the softmax activated output
-             A training operation that utilizes Adam optimization (with default hyperparameters)
+             A training operation that utilizes Adam optimization
+                        (with default hyperparameters)
              A tensor for the loss of the netowrk
              A tensor for the accuracy of the network
     """
@@ -23,11 +24,13 @@ def lenet5(x, y):
 
     layers = [
         tf.layers.Conv2D(
-            filters=6, kernel_size=(5, 5), padding="same", kernel_initializer=init
+            filters=6, kernel_size=(5, 5),
+            padding="same", kernel_initializer=init
         ),
         tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
         tf.layers.Conv2D(
-            filters=16, kernel_size=(5, 5), padding="valid", kernel_initializer=init
+            filters=16, kernel_size=(5, 5),
+            padding="valid", kernel_initializer=init
         ),
         tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
         tf.layers.Flatten(),
@@ -42,9 +45,9 @@ def lenet5(x, y):
 
     loss = tf.losses.softmax_cross_entropy(y, prev_layer_output)
     train_op = tf.train.AdamOptimizer().minimize(loss)
-    output = tf.nn.softmax(prev_layer_output)
-    accuracy = tf.equal(tf.argmax(y, 1), tf.argmax(output, 1))
+    accuracy = tf.equal(tf.argmax(y, 1), tf.argmax(prev_layer_output, 1))
     accuracy = tf.reduce_mean(tf.cast(accuracy, tf.float32))
 
+    output = tf.nn.softmax(prev_layer_output)
 
     return output, train_op, loss, accuracy
