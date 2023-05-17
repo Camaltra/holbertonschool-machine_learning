@@ -31,11 +31,11 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     kh, kw, _, ch = W.shape
 
     if padding == "valid":
-        w_pad = 0
         h_pad = 0
+        w_pad = 0
     else:
-        w_pad = int((((w_prev - 1) * w_stride + kw - w_prev) / 2) + 1)
-        h_pad = int((((h_prev - 1) * h_stride + kh - h_prev) / 2) + 1)
+        h_pad = int(np.ceil(((h_prev - 1) * h_stride + kh - h_prev) / 2))
+        w_pad = int(np.ceil(((w_prev - 1) * w_stride + kw - w_prev) / 2))
 
     h_output = int(((2 * h_pad - kh + h_prev) / h_stride) + 1)
     w_output = int(((2 * w_pad - kw + w_prev) / w_stride) + 1)
