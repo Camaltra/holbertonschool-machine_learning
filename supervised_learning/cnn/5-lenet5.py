@@ -6,11 +6,12 @@
 import tensorflow.keras as K
 
 
-def lenet5(_):
+def lenet5(X):
     """
     That builds a modified version of the LeNet-5
     architecture using tensorflow
-    :param _: Unsused variable
+    :param X: Is a `tf.placeholder` of shape (m, 28, 28, 1)
+              containing the input images for the network
     :return: K.Model compiled to use Adam optimization
              (with default hyperparameters) and accuracy
              metrics
@@ -34,7 +35,12 @@ def lenet5(_):
         K.layers.Dense(10, activation="softmax", kernel_initializer=init),
     ]
 
-    model = K.Sequential(layers)
+    prev_layer_output = X
+    for layer in layers:
+        prev_layer_output = layer(prev_layer_output)
+
+    model = K.Model(inputs=X, outputs=prev_layer_output)
+
     model.compile(
         optimizer="adam",
         loss='categorical_crossentropy',
