@@ -24,12 +24,12 @@ def lenet5(x, y):
 
     layers = [
         tf.layers.Conv2D(
-            filters=6, kernel_size=(5, 5),
-            padding="same", kernel_initializer=init
+            filters=6, activation="relu", kernel_size=(5, 5),
+            padding="same", kernel_initializer=init,
         ),
         tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
         tf.layers.Conv2D(
-            filters=16, kernel_size=(5, 5),
+            filters=16, activation="relu", kernel_size=(5, 5),
             padding="valid", kernel_initializer=init
         ),
         tf.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2)),
