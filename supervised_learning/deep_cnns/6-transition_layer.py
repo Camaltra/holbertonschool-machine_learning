@@ -16,10 +16,10 @@ def transition_layer(X, nb_filters, compression):
     norm = K.layers.BatchNormalization()(X)
     act = K.layers.Activation('relu')(norm)
     conv_1x1 = K.layers.Conv2D(filters=int(nb_filters*compression),
-                                      kernel_size=(1, 1),
-                                      kernel_initializer=init)(act)
+                               kernel_size=(1, 1),
+                               kernel_initializer=init)(act)
     pooling = K.layers.MaxPooling2D(pool_size=(2, 2),
-                                           padding="same",
-                                           strides=(1, 1))(conv_1x1)
+                                    padding="same",
+                                    strides=(1, 1))(conv_1x1)
 
     return pooling, int(nb_filters*compression)

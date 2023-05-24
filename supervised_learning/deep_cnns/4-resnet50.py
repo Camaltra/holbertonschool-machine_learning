@@ -15,16 +15,16 @@ def resnet50():
     input = K.Input(shape=(224, 224, 3))
 
     conv_1 = K.layers.Conv2D(filters=64,
-                                    kernel_size=(7, 7),
-                                    strides=(2, 2),
-                                    padding="same",
-                                    kernel_initializer=init)(input)
+                             kernel_size=(7, 7),
+                             strides=(2, 2),
+                             padding="same",
+                             kernel_initializer=init)(input)
     norm_1 = K.layers.BatchNormalization(axis=3)(conv_1)
     act_1 = K.layers.Activation('relu')(norm_1)
 
     max_pool_1 = K.layers.MaxPooling2D(pool_size=(3, 3),
-                                              strides=(2, 2),
-                                              padding="same")(act_1)
+                                       strides=(2, 2),
+                                       padding="same")(act_1)
 
     pr_block_1_2x = projection_block(max_pool_1, [64, 64, 256], s=1)
     id_block_1_2x = identity_block(pr_block_1_2x, [64, 64, 256])
@@ -47,11 +47,11 @@ def resnet50():
     id_block_2_5x = identity_block(id_block_1_5x, [512, 512, 2048])
 
     max_pool = K.layers.AvgPool2D(pool_size=(7, 7),
-                                         strides=(1, 1),
-                                         padding="valid")(id_block_2_5x)
+                                  strides=(1, 1),
+                                  padding="valid")(id_block_2_5x)
 
     dense_output = K.layers.Dense(units=1000,
-                                         activation="softmax",
-                                         kernel_initializer=init)(max_pool)
+                                  activation="softmax",
+                                  kernel_initializer=init)(max_pool)
 
     return K.models.Model(inputs=input, outputs=dense_output)
