@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """Useless comment"""
-import tensorflow as tf
+import tensorflow.keras as K
 identity_block = __import__('2-identity_block').identity_block
 projection_block = __import__('3-projection_block').projection_block
 
@@ -11,18 +11,18 @@ def resnet50():
     Create the ResNet50 Model
     :return: The ResNet50 model
     """
-    init = tf.keras.initializers.he_normal()
-    input = tf.keras.Input(shape=(224, 224, 3))
+    init = K.initializers.he_normal()
+    input = K.Input(shape=(224, 224, 3))
 
-    conv_1 = tf.keras.layers.Conv2D(filters=64,
+    conv_1 = K.layers.Conv2D(filters=64,
                                     kernel_size=(7, 7),
                                     strides=(2, 2),
                                     padding="same",
                                     kernel_initializer=init)(input)
-    norm_1 = tf.keras.layers.BatchNormalization(axis=3)(conv_1)
-    act_1 = tf.keras.layers.ReLU()(norm_1)
+    norm_1 = K.layers.BatchNormalization(axis=3)(conv_1)
+    act_1 = K.layers.Activation('relu')(norm_1)
 
-    max_pool_1 = tf.keras.layers.MaxPooling2D(pool_size=(3, 3),
+    max_pool_1 = K.layers.MaxPooling2D(pool_size=(3, 3),
                                               strides=(2, 2),
                                               padding="same")(act_1)
 
@@ -46,12 +46,12 @@ def resnet50():
     id_block_1_5x = identity_block(pr_block_1_5x, [512, 512, 2048])
     id_block_2_5x = identity_block(id_block_1_5x, [512, 512, 2048])
 
-    max_pool = tf.keras.layers.AvgPool2D(pool_size=(7, 7),
+    max_pool = K.layers.AvgPool2D(pool_size=(7, 7),
                                          strides=(1, 1),
                                          padding="valid")(id_block_2_5x)
 
-    dense_output = tf.keras.layers.Dense(units=1000,
+    dense_output = K.layers.Dense(units=1000,
                                          activation="softmax",
                                          kernel_initializer=init)(max_pool)
 
-    return tf.keras.models.Model(inputs=input, outputs=dense_output)
+    return K.models.Model(inputs=input, outputs=dense_output)

@@ -2,7 +2,7 @@
 
 """Useless comment"""
 
-import tensorflow as tf
+import tensorflow.keras as K
 
 
 def identity_block(A_prev, filters):
@@ -12,29 +12,29 @@ def identity_block(A_prev, filters):
     :param filters: An array of the conv-filter-size
     :return: The identity module
     """
-    init = tf.keras.initializers.he_normal()
+    init = K.initializers.he_normal()
     f11, f3, f12 = filters
 
-    conv_f11 = tf.keras.layers.Conv2D(filters=f11,
+    conv_f11 = K.layers.Conv2D(filters=f11,
                                       kernel_size=(1, 1),
                                       padding="same",
                                       kernel_initializer=init)(A_prev)
-    norm_1 = tf.keras.layers.BatchNormalization(axis=3)(conv_f11)
-    act_1 = tf.keras.layers.ReLU()(norm_1)
+    norm_1 = K.layers.BatchNormalization(axis=3)(conv_f11)
+    act_1 = K.layers.Activation('relu')(norm_1)
 
-    conv_f3 = tf.keras.layers.Conv2D(filters=f3,
+    conv_f3 = K.layers.Conv2D(filters=f3,
                                      kernel_size=(3, 3),
                                      padding="same",
                                      kernel_initializer=init)(act_1)
-    norm_2 = tf.keras.layers.BatchNormalization(axis=3)(conv_f3)
-    act_2 = tf.keras.layers.ReLU()(norm_2)
+    norm_2 = K.layers.BatchNormalization(axis=3)(conv_f3)
+    act_2 = K.layers.Activation('relu')(norm_2)
 
-    conv_f12 = tf.keras.layers.Conv2D(filters=f12,
+    conv_f12 = K.layers.Conv2D(filters=f12,
                                       kernel_size=(1, 1),
                                       padding="same",
                                       kernel_initializer=init)(act_2)
-    norm_3 = tf.keras.layers.BatchNormalization(axis=3)(conv_f12)
+    norm_3 = K.layers.BatchNormalization(axis=3)(conv_f12)
 
-    add = tf.keras.layers.Add()([norm_3, A_prev])
+    add = K.layers.Add()([norm_3, A_prev])
 
-    return tf.keras.layers.ReLU()(add)
+    return K.layers.Activation('relu')(add)

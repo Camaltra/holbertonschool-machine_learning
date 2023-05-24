@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """Useless comment"""
-import tensorflow as tf
+import tensorflow.keras as K
 
 
 def transition_layer(X, nb_filters, compression):
@@ -12,14 +12,14 @@ def transition_layer(X, nb_filters, compression):
     :param compression: The compression rate
     :return:
     """
-    init = tf.keras.initializers.he_normal()
-    norm = tf.keras.layers.BatchNormalization()(X)
-    act = tf.keras.layers.ReLU()(norm)
-    conv_1x1 = tf.keras.layers.Conv2D(filters=int(nb_filters*compression),
+    init = K.initializers.he_normal()
+    norm = K.layers.BatchNormalization()(X)
+    act = K.layers.Activation('relu')(norm)
+    conv_1x1 = K.layers.Conv2D(filters=int(nb_filters*compression),
                                       kernel_size=(1, 1),
                                       kernel_initializer=init)(act)
-    pooling = tf.keras.layers.MaxPooling2D(pool_size=(2, 2),
+    pooling = K.layers.MaxPooling2D(pool_size=(2, 2),
                                            padding="same",
                                            strides=(1, 1))(conv_1x1)
 
-    return pooling, int(tf.floor(nb_filters*compression))
+    return pooling, int(nb_filters*compression)
