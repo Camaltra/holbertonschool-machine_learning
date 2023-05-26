@@ -16,7 +16,7 @@ def densenet121(growth_rate=32, compression=1.0):
     init = K.initializers.he_normal()
     X = K.layers.Input(shape=(224, 224, 3))
     norm_1 = K.layers.BatchNormalization(axis=3)(X)
-    act_1 = K.layers.Activation('relu')(norm_1)
+    act_1 = K.layers.ReLU()(norm_1)
     nb_filters = growth_rate * 2
     conv_1 = K.layers.Conv2D(filters=nb_filters,
                              kernel_size=(7, 7),
