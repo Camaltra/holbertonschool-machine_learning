@@ -17,13 +17,6 @@ def projection_block(A_prev, filters, s=2):
     init = K.initializers.he_normal()
     f11, f3, f12 = filters
 
-    conv_f12_shortcut = K.layers.Conv2D(filters=f12,
-                                        kernel_size=(1, 1),
-                                        padding="same",
-                                        kernel_initializer=init,
-                                        strides=(s, s))(A_prev)
-    norm_1_shortcut = K.layers.BatchNormalization()(conv_f12_shortcut)
-
     conv_f11 = K.layers.Conv2D(filters=f11,
                                kernel_size=(1, 1),
                                padding="same",
@@ -44,6 +37,13 @@ def projection_block(A_prev, filters, s=2):
                                padding="same",
                                kernel_initializer=init)(act_2)
     norm_3 = K.layers.BatchNormalization(axis=3)(conv_f12)
+
+    conv_f12_shortcut = K.layers.Conv2D(filters=f12,
+                                        kernel_size=(1, 1),
+                                        padding="same",
+                                        kernel_initializer=init,
+                                        strides=(s, s))(A_prev)
+    norm_1_shortcut = K.layers.BatchNormalization()(conv_f12_shortcut)
 
     add = K.layers.Add()([norm_3, norm_1_shortcut])
 
