@@ -30,4 +30,4 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                    kernel_initializer=init)(act)
         input_data = K.layers.Concatenate()([input_data, conv_3x3])
 
-    return input_data, growth_rate * nb_filters
+    return input_data, (growth_rate * layers) + nb_filters
