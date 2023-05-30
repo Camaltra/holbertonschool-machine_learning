@@ -10,30 +10,13 @@ EXTRACTED_TRAIN_DATA_PATH_BASE = "extracted_train_data.npz"
 EXTRACTED_TEST_DATA_PATH_BASE = "extracted_test_data.npz"
 
 
-def preprocess_data(X, Y):
-    """
-    Preprocess the data based on the model choose
-    :param X: A numpy.ndarray of shape (m, 32, 32, 3) containing
-              the CIFAR 10 data, where m is the number
-              of data points
-    :param Y: A numpy.ndarray of shape (m,) containing the CIFAR 10
-              labels for X
-    :return: X_p is a numpy.ndarray containing the preprocessed X
-             Y_p is a numpy.ndarray containing the preprocessed Y
-    """
+def preprocess_data(X: np.ndarray, Y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     X_preprocessed = tf.keras.applications.densenet.preprocess_input(X)
     Y_preprocessed = tf.keras.utils.to_categorical(Y)
     return X_preprocessed, Y_preprocessed
 
 
-def get_bottleneck_features(model, input_imgs):
-    """
-    Get the predictions of the pre-trained model
-    to save computation time
-    :param model: The pre-trained model
-    :param input_imgs: The inputed images to pre-compute
-    :return: The predictions
-    """
+def get_bottleneck_features(model: tf.keras.models.Model, input_imgs: np.ndarray) -> tf.keras.dtensor:
     return model.predict(input_imgs, verbose=1)
 
 
