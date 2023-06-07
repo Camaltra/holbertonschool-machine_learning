@@ -94,9 +94,9 @@ class Yolo:
             bx = (sigmoid(t_x) + c_x) / grid_width
             by = (sigmoid(t_y) + c_y) / grid_height
             bw = np.exp(t_w) * self.anchors[output_idx, :, 0]
-            bw /= self.model.input.shape[1]
+            bw /= self.model.input.shape[1].value
             bh = np.exp(t_h) * self.anchors[output_idx, :, 1]
-            bh /= self.model.input.shape[2]
+            bh /= self.model.input.shape[2].value
 
             y1 = (by - bh / 2) * image_height
             x1 = (bx - bw / 2) * image_width
