@@ -7,25 +7,13 @@ import os
 import numpy as np
 
 
-class MathI:
+def sigmoid(x):
     """
-    Math interfaces
-    There is no ways it had to be here, but I can't make it check
-    if it is in another file
+    Sigmoid function
+    :param x: The x parameter
+    :return: The computed function given x
     """
-    def __init__(self):
-        """
-        Init the class
-        """
-        pass
-
-    def sigmoid(self, x):
-        """
-        Sigmoid function
-        :param x: The x parameter
-        :return: The computed function given x
-        """
-        return 1 / (1 + np.exp(-x))
+    return 1 / (1 + np.exp(-x))
 
 
 def get_classes_name(classes_name_path):
@@ -73,7 +61,6 @@ class Yolo:
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
-        self.math_i = MathI()
 
     def process_outputs(self, outputs, image_size):
         """
@@ -104,8 +91,8 @@ class Yolo:
             c_y = np.tile(c_y, grid_width)
             c_y = c_y.reshape(1, grid_height, grid_width).T
 
-            bx = (self.math_i.sigmoid(t_x) + c_x) / grid_width
-            by = (self.math_i.sigmoid(t_y) + c_y) / grid_height
+            bx = (sigmoid(t_x) + c_x) / grid_width
+            by = (sigmoid(t_y) + c_y) / grid_height
             bw = np.exp(t_w) * self.anchors[output_idx, :, 0]
             bw /= self.model.input.shape[1]
             bh = np.exp(t_h) * self.anchors[output_idx, :, 1]
@@ -123,8 +110,8 @@ class Yolo:
             b_size[:, :, :, 3] = y2
             boxes.append(b_size)
 
-            box_confidences.append(self.math_i.sigmoid(output[:, :, :, 4:5]))
+            box_confidences.append(sigmoid(output[:, :, :, 4:5]))
 
-            box_class_probs.append(self.math_i.sigmoid(output[:, :, :, 5:]))
+            box_class_probs.append(sigmoid(output[:, :, :, 5:]))
 
         return boxes, box_confidences, box_class_probs
