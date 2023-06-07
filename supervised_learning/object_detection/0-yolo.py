@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 """Useless comment"""
 
@@ -9,6 +9,11 @@ from typing import Union, List
 
 
 def get_classes_name(classes_name_path: str) -> List[str]:
+    """
+    Get the classes name form a given .txt. file
+    :param classes_name_path: The path to the .txt file
+    :return: And array that contain class name
+    """
     classes_name = []
     with open(classes_name_path, "r") as f:
         for line in f.readlines():
@@ -18,6 +23,9 @@ def get_classes_name(classes_name_path: str) -> List[str]:
 
 
 class Yolo:
+    """
+    Yolo model class
+    """
     def __init__(
             self,
             model_path: str,
@@ -26,6 +34,14 @@ class Yolo:
             nms_t: float,
             anchors: Union[np.ndarray, List]
     ) -> None:
+        """
+        Init the class
+        :param model_path: The path to the DarkNet model
+        :param classes_name_path: The path to the file cotaining classes names
+        :param class_t: The box threshold for the initial filtrering step
+        :param nms_t: The IOU threshold for non-max suppression
+        :param anchors: The anchor boxes
+        """
         if not os.path.exists(model_path):
             raise FileNotFoundError("Wrong model file path")
 
