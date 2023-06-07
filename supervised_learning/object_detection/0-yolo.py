@@ -4,11 +4,9 @@
 
 import tensorflow as tf
 import os
-import numpy as np
-from typing import Union, List
 
 
-def get_classes_name(classes_name_path: str) -> List[str]:
+def get_classes_name(classes_name_path):
     """
     Get the classes name form a given .txt. file
     :param classes_name_path: The path to the .txt file
@@ -28,12 +26,12 @@ class Yolo:
     """
     def __init__(
             self,
-            model_path: str,
-            classes_name_path: str,
-            class_t: float,
-            nms_t: float,
-            anchors: Union[np.ndarray, List]
-    ) -> None:
+            model_path,
+            classes_name_path,
+            class_t,
+            nms_t,
+            anchors
+    ):
         """
         Init the class
         :param model_path: The path to the DarkNet model
@@ -48,8 +46,8 @@ class Yolo:
         if not os.path.exists(classes_name_path):
             raise FileNotFoundError("Wrong classes file path")
 
-        self.model: tf.keras.Model = tf.keras.models.load_model(model_path)
-        self.class_names: List[str] = get_classes_name(classes_name_path)
-        self.class_t: float = class_t
-        self.nms_t: float = nms_t
-        self.anchors: Union[np.ndarray, List] = anchors
+        self.model = tf.keras.models.load_model(model_path)
+        self.class_names = get_classes_name(classes_name_path)
+        self.class_t = class_t
+        self.nms_t = nms_t
+        self.anchors = anchors
