@@ -135,13 +135,8 @@ class Yolo:
                     for anchor in range(anchors):
                         current_condifance = box_preds[h_i, w_i, anchor, 0]
                         current_boxes = boxes[boxes_i][h_i, w_i, anchor]
-                        classe = np.argmax(
-                            box_class_probs[boxes_i][h_i, w_i, anchor]
-                        )
-                        classe_proba = np.max(
-                            np.max(box_class_probs[boxes_i][h_i, w_i, anchor])
-                        )
-                        box_score = box_confidences * classe_proba
+                        classe = np.argmax(box_class_probs[boxes_i][h_i, w_i, anchor])
+                        box_score = current_condifance * np.max(box_class_probs[boxes_i][h_i, w_i, anchor])
                         if box_score >= self.class_t:
                             filtered_boxes.append(current_boxes)
                             box_classes.append(classe)
