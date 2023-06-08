@@ -141,7 +141,7 @@ class Yolo:
                         max_prob_class = np.max(
                             box_class_probs[boxes_i][h_i, w_i, anchor]
                         )
-                        box_score = current_condifance * max_prob_class
+                        box_score = box_confidences * max_prob_class
                         if box_score >= self.class_t:
                             filtered_boxes.append(current_boxes)
                             box_classes.append(classe)
