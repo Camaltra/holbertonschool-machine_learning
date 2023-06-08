@@ -94,9 +94,9 @@ class Yolo:
             bx = (sigmoid(t_x) + c_x) / grid_width
             by = (sigmoid(t_y) + c_y) / grid_height
             bw = np.exp(t_w) * self.anchors[output_idx, :, 0]
-            bw /= self.model.input.shape[1].value
+            bw /= self.model.input.shape[1]
             bh = np.exp(t_h) * self.anchors[output_idx, :, 1]
-            bh /= self.model.input.shape[2].value
+            bh /= self.model.input.shape[2]
 
             y1 = (by - bh / 2) * image_height
             x1 = (bx - bw / 2) * image_width
@@ -135,8 +135,13 @@ class Yolo:
                     for anchor in range(anchors):
                         current_condifance = box_preds[h_i, w_i, anchor, 0]
                         current_boxes = boxes[boxes_i][h_i, w_i, anchor]
-                        classe = np.argmax(box_class_probs[boxes_i][h_i, w_i, anchor])
-                        box_score = current_condifance * np.max(np.max(box_class_probs[boxes_i][h_i, w_i, anchor]))
+                        classe = np.argmax(
+                            box_class_probs[boxes_i][h_i, w_i, anchor]
+                        )
+                        max_prob_class = np.max(
+                            box_class_probs[boxes_i][h_i, w_i, anchor]
+                        )
+                        box_score = current_condifance * max_prob_class
                         if box_score >= self.class_t:
                             filtered_boxes.append(current_boxes)
                             box_classes.append(classe)
@@ -147,7 +152,3 @@ class Yolo:
         box_scores = np.array(box_scores)
 
         return filtered_boxes, box_classes, box_scores
-
-
-
-
