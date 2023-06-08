@@ -161,16 +161,14 @@ class Yolo:
 
         return filtered_boxes, box_classes, box_scores
 
-    def _nms(self, filtered_class_boxes):
+    def _nms(self, filtered_class_boxes, filtered_class_box_score):
         """
         Sub function to compute the non-max supression for a given class
         :param filtered_class_boxes: The filtered classes boxes of a given
                                      class
+        :param filtered_class_box_score: The score to sort on it
         :return: The index of the non overlaping box
         """
-        if len(filtered_class_boxes) == 0:
-            return []
-
         keeped_boxes = []
 
         x1 = filtered_class_boxes[:, 0]
@@ -179,7 +177,7 @@ class Yolo:
         y2 = filtered_class_boxes[:, 3]
 
         areas = (x2 - x1 + 1) * (y2 - y1 + 1)
-        idxs = np.argsort(y2)
+        idxs = filtered_class_box_score.argsort()
 
         while idxs.size != 0:
             last = idxs.size - 1
@@ -194,12 +192,12 @@ class Yolo:
             width = np.maximum(0, xx2 - xx1 + 1)
             height = np.maximum(0, yy2 - yy1 + 1)
 
-            overlap = (width * height) / areas[idxs[:last]]
+            overlap = (width * height) / (areas[current_boxes_idx] + areas[idxs[:last]] - (width * height))
 
             idxs = np.delete(
                 idxs,
                 np.concatenate(
-                    ([last], np.where(overlap > self.nms_t)[0])
+                    ([last], np.where(overlap >= self.nms_t)[0])
                 ))
 
         return keeped_boxes
@@ -225,7 +223,7 @@ class Yolo:
             filtered_class_box_class = box_classes[idx_classes]
             filtered_class_box_score = box_scores[idx_classes]
 
-            keeped_box_idx = self._nms(filtered_class_boxes)
+            keeped_box_idx = self._nms(filtered_class_boxes, filtered_class_box_score)
 
             box_predictions.append(filtered_class_boxes[keeped_box_idx])
             predictions_box_classes.append(
