@@ -269,7 +269,6 @@ class Yolo:
         """
         images_shapes = []
         images_resized = []
-        print(self.model.input.shape[1])
         for image in images:
             images_resized.append(
                 cv2.resize(
