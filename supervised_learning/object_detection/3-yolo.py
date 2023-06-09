@@ -192,7 +192,10 @@ class Yolo:
             width = np.maximum(0, xx2 - xx1 + 1)
             height = np.maximum(0, yy2 - yy1 + 1)
 
-            overlap = (width * height) / (areas[current_boxes_idx] + areas[idxs[:last]] - (width * height))
+            inter = (width * height)
+
+            union = (areas[current_boxes_idx] + areas[idxs[:last]] - inter)
+            overlap = inter / union
 
             idxs = np.delete(
                 idxs,
@@ -223,7 +226,10 @@ class Yolo:
             filtered_class_box_class = box_classes[idx_classes]
             filtered_class_box_score = box_scores[idx_classes]
 
-            keeped_box_idx = self._nms(filtered_class_boxes, filtered_class_box_score)
+            keeped_box_idx = self._nms(
+                filtered_class_boxes,
+                filtered_class_box_score
+            )
 
             box_predictions.append(filtered_class_boxes[keeped_box_idx])
             predictions_box_classes.append(
