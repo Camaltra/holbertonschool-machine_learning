@@ -274,7 +274,10 @@ class Yolo:
             images_resized.append(
                 cv2.resize(
                     image,
-                    dsize=(self.model.input.shape[1], self.model.input.shape[2]),
+                    dsize=(
+                        self.model.input.shape[1].value,
+                        self.model.input.shape[2].value
+                    ),
                     interpolation=cv2.INTER_CUBIC
                 )
             )
