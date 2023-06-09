@@ -259,13 +259,14 @@ class Yolo:
             if img is not None:
                 image.append(img)
                 image_path.append(folder_path + '/' + filename)
-        return (image, image_path)
+        return image, image_path
 
     def preprocess_images(self, images):
         """
-
-        :param images:
-        :return:
+        Preocess images -- Put them on the same size as the
+        model input and on a scale between [0, 1]
+        :param images: The list of images to preprocess
+        :return: Tuple of (preprocessed images, original image size)
         """
         images_shapes = []
         images_resized = []
@@ -274,8 +275,8 @@ class Yolo:
                 cv2.resize(
                     image,
                     dsize=(
-                        self.model.input.shape[1].value,
-                        self.model.input.shape[2].value
+                        self.model.input.shape[1],
+                        self.model.input.shape[2]
                     ),
 
                     interpolation=cv2.INTER_CUBIC
