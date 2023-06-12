@@ -113,7 +113,7 @@ class NST:
             input_layer,
             [batch_size, height * width, channels]
         )
-        gram_matrix = tf.matmul(
+        gram_matrix = tf.linalg.matmul(
             flattened_inputs,
             flattened_inputs,
             transpose_a=True
