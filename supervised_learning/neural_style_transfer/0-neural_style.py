@@ -48,8 +48,8 @@ class NST:
         tf.enable_eager_execution()
         check_image_channel_input(style_image, "style_image")
         check_image_channel_input(content_image, "content_image")
-        self.style_image = style_image
-        self.content_image = content_image
+        self.style_image = self.scale_image(style_image)
+        self.content_image = self.scale_image(content_image)
         check_hyperparameter_input(alpha, "alpha")
         check_hyperparameter_input(beta, "beta")
         self.alpha = alpha
