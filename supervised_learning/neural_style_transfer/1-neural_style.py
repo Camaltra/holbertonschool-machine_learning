@@ -84,12 +84,15 @@ class NST:
 
         x = inputs
 
+        # Modify the model MaxPool layers and save it into a new layer
         for layer in vgg19.layers[1:]:
             layer.trainable = False
             if "pool" in layer.name:
                 x = tf.keras.layers.AveragePooling2D(name=layer.name)(x)
             else:
                 x = layer(x)
-                if layer.name == self.content_layer:
-                    break
-        self.model = tf.keras.models.Model(inputs, x)
+        model = tf.keras.models.Model(inputs, x)
+
+        outputs = [model.get_layer(layer).output
+                   for layer in self.style_layers] + [vgg19.get_layer(self.content_layer).output]
+        return tf.keras.models.Model(inputs, outputs)
