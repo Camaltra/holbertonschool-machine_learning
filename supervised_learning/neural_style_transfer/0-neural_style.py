@@ -13,7 +13,7 @@ def check_image_channel_input(img, source):
     :param source: The variable name to error message
     :return:
     """
-    if img.shape[-1] != 3 or type(img) != np.ndarray:
+    if type(img) != np.ndarray or img.shape[-1] != 3:
         raise TypeError(
             "{} must be a numpy.ndarray with shape (h, w, 3)".format(source)
         )
@@ -26,7 +26,7 @@ def check_hyperparameter_input(hyperparameter, source):
     :param source: The variable name to error message
     :return:
     """
-    if hyperparameter < 0 or type(hyperparameter) not in [float, int]:
+    if type(hyperparameter) not in [float, int] or hyperparameter < 0:
         raise TypeError("{} must be a non-negative number".format(source))
 
 
