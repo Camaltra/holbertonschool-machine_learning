@@ -26,8 +26,8 @@ def check_tensor_rank_input(input_layer, source):
     :param source: The variable name to error message
     :return: Nothing
     """
-    if type(input_layer) not in [tf.Tensor, tf.Variable] \
-            or len(input_layer.shape) != 4:
+    if not isinstance(input_layer, (tf.Tensor, tf.Variable)) or len(
+            input_layer.shape) != 4:
         raise TypeError("{} must be a tensor of rank 4".format(source))
 
 
@@ -92,19 +92,19 @@ class NST:
         :return: The model
         """
         vgg19 = tf.keras.applications.VGG19(include_top=False)
-        inputs = vgg19.input
-
-        x = inputs
-
-        for layer in vgg19.layers[1:]:
+        for layer in vgg19.layers:
             layer.trainable = False
-            if "pool" in layer.name:
-                x = tf.keras.layers.AveragePooling2D(name=layer.name)(x)
-            else:
-                x = layer(x)
-                if layer.name == self.content_layer:
-                    break
-        self.model = tf.keras.models.Model(inputs, x)
+        vgg19.save("vgg_base_model.h5")
+        model = tf.keras.models.load_model(
+            "vgg_base_model.h5",
+            custom_objects={
+                "MaxPooling2D": tf.keras.layers.AveragePooling2D()
+            })
+
+        outputs = ([model.get_layer(layer).output
+                   for layer in self.style_layers]
+                   + [model.get_layer(self.content_layer).output])
+        self.model = tf.keras.models.Model(model.input, outputs)
 
     @staticmethod
     def gram_matrix(input_layer):
@@ -120,7 +120,8 @@ class NST:
             [batch_size, height * width, channels]
         )
         gram_matrix = tf.linalg.matmul(
-            tf.transpose(flattened_inputs),
             flattened_inputs,
+            flattened_inputs,
+            transpose_a=True
         )
         return gram_matrix * coef
