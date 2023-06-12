@@ -54,7 +54,7 @@ class NST:
         check_hyperparameter_input(beta, "beta")
         self.alpha = alpha
         self.beta = beta
-        self.model = self.load_model()
+        self.load_model()
 
     @staticmethod
     def scale_image(image):
@@ -86,11 +86,10 @@ class NST:
 
         for layer in vgg19.layers[1:]:
             layer.trainable = False
-            if "block4_pool" in layer.name:
+            if "pool" in layer.name:
                 x = tf.keras.layers.AveragePooling2D(name=layer.name)(x)
             else:
                 x = layer(x)
                 if layer.name == self.content_layer:
                     break
-
-        return tf.keras.models.Model(inputs, x)
+        self.model = tf.keras.models.Model(inputs, x)
