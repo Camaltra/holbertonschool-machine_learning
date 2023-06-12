@@ -117,10 +117,14 @@ class NST:
         # )
         # return gram_matrix * coef
 
-        # Code from github -- @mohsenabedelaal
-        channels = int(input_layer.shape[-1])
-        a = tf.reshape(input_layer, shape=[-1, channels])
-        n = tf.shape(a)[0]
-        gram = tf.matmul(tf.transpose(a), a) / tf.cast(n, tf.float32)
-        gram = tf.reshape(gram, shape=[1, -1, channels])
-        return gram
+        # Re write the code inspired of github alumni
+        batch_size, height, width, channels = input_layer.shape
+        flattened_inputs = tf.reshape(
+            input_layer,
+            [-1, channels]
+        )
+        gram_matrix = tf.matmul(
+            tf.transpose(flattened_inputs),
+            flattened_inputs,
+        ) / tf.cast(flattened_inputs.shape[0], tf.float32)
+        return tf.reshape(gram_matrix, [1, -1, channels])
