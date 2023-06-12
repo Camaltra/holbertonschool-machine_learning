@@ -45,7 +45,7 @@ class NST:
         :param alpha: The alpha parameter
         :param beta: The beta parameter
         """
-        tf.compat.v1.enable_eager_execution()
+        tf.enable_eager_execution()
         check_image_channel_input(style_image, "style_image")
         check_image_channel_input(content_image, "content_image")
         self.style_image = style_image
