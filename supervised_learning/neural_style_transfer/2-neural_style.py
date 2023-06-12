@@ -31,17 +31,6 @@ def check_tensor_rank_input(input_layer, source):
         raise TypeError("{} must be a tensor of rank 4".format(source))
 
 
-def check_hyperparameter_input(hyperparameter, source):
-    """
-    Check given hyperparameter
-    :param hyperparameter: The hyperparameter
-    :param source: The variable name to error message
-    :return:
-    """
-    if type(hyperparameter) not in [float, int] or hyperparameter < 0:
-        raise TypeError("{} must be a non-negative number".format(source))
-
-
 class NST:
     """Neural style transfer model"""
 
@@ -119,7 +108,7 @@ class NST:
             input_layer,
             [batch_size, height * width, channels]
         )
-        gram_matrix = tf.linalg.matmul(
+        gram_matrix = tf.matmul(
             flattened_inputs,
             flattened_inputs,
             transpose_a=True
