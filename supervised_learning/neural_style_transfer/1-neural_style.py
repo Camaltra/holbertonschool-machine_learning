@@ -54,7 +54,7 @@ class NST:
         check_hyperparameter_input(beta, "beta")
         self.alpha = alpha
         self.beta = beta
-        self.model = self.load_model()
+        self.load_model()
 
     @staticmethod
     def scale_image(image):
@@ -91,5 +91,4 @@ class NST:
 
         outputs = [model.get_layer(layer).output
                    for layer in self.style_layers] + [model.get_layer(self.content_layer).output]
-
-        return tf.keras.models.Model(model.input, outputs)
+        self.model = tf.keras.models.Model(model.input, outputs)
