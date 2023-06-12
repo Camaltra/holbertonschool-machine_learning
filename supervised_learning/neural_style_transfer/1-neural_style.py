@@ -80,19 +80,16 @@ class NST:
         :return: The model
         """
         vgg19 = tf.keras.applications.VGG19(include_top=False)
-        inputs = vgg19.input
-
-        x = inputs
-
-        # Modify the model MaxPool layers and save it into a new layer
-        for layer in vgg19.layers[1:]:
+        for layer in vgg19.layers:
             layer.trainable = False
-            if "pool" in layer.name:
-                x = tf.keras.layers.AveragePooling2D(name=layer.name)(x)
-            else:
-                x = layer(x)
-        model = tf.keras.models.Model(inputs, x)
+        vgg19.save("vgg_base_model.h5")
+        model = tf.keras.models.load_model(
+            "vgg_base_model.h5",
+            custom_objects={
+                "MaxPooling2D": tf.keras.layers.AveragePooling2D()
+            })
 
         outputs = [model.get_layer(layer).output
-                   for layer in self.style_layers] + [vgg19.get_layer(self.content_layer).output]
-        return tf.keras.models.Model(inputs, outputs)
+                   for layer in self.style_layers] + [model.get_layer(self.content_layer).output]
+
+        return tf.keras.models.Model(model.input, outputs)
