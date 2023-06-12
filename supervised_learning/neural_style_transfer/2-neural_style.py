@@ -20,6 +20,12 @@ def check_image_channel_input(img, source):
 
 
 def check_tensor_rank_input(input_layer, source):
+    """
+    Check the tensor rank
+    :param input_layer: The given tensor
+    :param source: The variable name to error message
+    :return: Nothing
+    """
     if type(input_layer) not in [tf.Tensor, tf.Variable] \
             or len(input_layer.shape) != 4:
         raise TypeError("{} must be a tensor of rank 4".format(source))
@@ -114,8 +120,7 @@ class NST:
             [batch_size, height * width, channels]
         )
         gram_matrix = tf.linalg.matmul(
+            tf.transpose(flattened_inputs),
             flattened_inputs,
-            flattened_inputs,
-            transpose_a=True
         )
         return gram_matrix * coef
