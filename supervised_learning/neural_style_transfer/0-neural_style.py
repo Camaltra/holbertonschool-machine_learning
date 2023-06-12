@@ -45,7 +45,7 @@ class NST:
         :param alpha: The alpha parameter
         :param beta: The beta parameter
         """
-        tf.enable_eager_execution()
+        tf.compat.v1.enable_eager_execution()
         check_image_channel_input(style_image, "style_image")
         check_image_channel_input(content_image, "content_image")
         self.style_image = style_image
@@ -69,10 +69,6 @@ class NST:
 
         new_dims = tuple([int(dim * ratio_dims) for dim in image.shape[:-1]])
         image = tf.expand_dims(image, 0)  # [1, h, w, 3]
-        resized_image = tf.image.resize(
-            image,
-            new_dims,
-            method=tf.image.ResizeMethod.BICUBIC
-        )
+        resized_image = tf.image.resize_bicubic(image, new_dims) / 255
 
         return tf.clip_by_value(resized_image, 0.0, 1.0)
