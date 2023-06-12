@@ -100,7 +100,8 @@ class NST:
                     break
         self.model = tf.keras.models.Model(inputs, x)
 
-    def gram_matrix(self, input_layer):
+    @staticmethod
+    def gram_matrix(input_layer):
         """
         Calculate the gram matrix
         :return: The gram matrix
