@@ -19,6 +19,17 @@ def check_image_channel_input(img, source):
         )
 
 
+def check_hyperparameter_input(hyperparameter, source):
+    """
+    Check given hyperparameter
+    :param hyperparameter: The hyperparameter
+    :param source: The variable name to error message
+    :return:
+    """
+    if type(hyperparameter) not in [float, int] or hyperparameter < 0:
+        raise TypeError("{} must be a non-negative number".format(source))
+
+
 def check_tensor_rank_input(input_layer, source):
     """
     Check the tensor rank
