@@ -4,7 +4,6 @@
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.applications.vgg19 import preprocess_input
 
 
 def check_image_channel_input(img, source):
