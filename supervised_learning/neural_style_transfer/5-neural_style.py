@@ -193,18 +193,17 @@ class NST:
         :param style_outputs: Style output for the generated image
         :return: The total cost for style
         """
-        if style_outputs.size != len(self.style_layers):
+        if not isinstance(style_outputs, list) or \
+                len(style_outputs) != len(self.style_layers):
             raise TypeError(
                 "style_outputs must be a list with a length of {}".format(
                     len(self.style_layers)
                 )
             )
-        total_cost = 0
-        weight = 1 / len(self.style_layers)
-        for style_output, target_output in zip(
-                style_outputs, self.gram_style_features
-        ):
-            total_cost = total_cost + weight * self.layer_style_cost(
-                style_output, target_output
+        total_cost = 0.0
+        weight = 1.0 / len(self.style_layers)
+        for style, target in zip(style_outputs, self.gram_style_features):
+            total_cost += weight * self.layer_style_cost(
+                style, target
             )
         return total_cost
