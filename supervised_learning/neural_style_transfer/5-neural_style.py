@@ -201,7 +201,7 @@ class NST:
                 )
             )
         total_cost = 0.0
-        weight = 1.0 / len(self.style_layers)
+        weight = 1.0 / float(len(style_outputs))
         for style, target in zip(style_outputs, self.gram_style_features):
             total_cost += weight * self.layer_style_cost(
                 style, target
