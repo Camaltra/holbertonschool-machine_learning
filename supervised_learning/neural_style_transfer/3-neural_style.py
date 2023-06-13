@@ -156,7 +156,9 @@ class NST:
         style_output = self.model(preprocess_style)
         content_output = self.model(preprocess_content)
 
+        features = style_output + content_output
+
         self.gram_style_features = [self.gram_matrix(layer)
                                     for layer in
-                                    style_output[:len(self.style_layers)]]
-        self.content_feature = content_output[-1]
+                                    features[:len(self.style_layers)]]
+        self.content_feature = features[-1:]
