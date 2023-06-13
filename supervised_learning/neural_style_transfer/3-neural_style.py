@@ -136,14 +136,17 @@ class NST:
         Saved the content and style feature representations from our model
         :return: Nothing
         """
-        preprocess_style = preprocess_input(self.style_image * 255)
-        preprocess_content = preprocess_input(self.content_image * 255)
+        preprocess_style = tf.keras.applications.vgg19.preprocess_input(
+            self.style_image * 255
+        )
+        preprocess_content = tf.keras.applications.vgg19.preprocess_input(
+            self.content_image * 255
+        )
 
         style_output = self.model(preprocess_style)
         content_output = self.model(preprocess_content)
 
-        self.gram_style_features = [
-            self.gram_matrix(layer)
-            for layer in style_output[:len(self.style_layers)]
-        ]
-        self.content_feature = content_output[len(self.style_layers):]
+        self.gram_style_features = [self.gram_matrix(layer)
+                                    for layer in
+                                    style_output[:len(self.style_layers)]]
+        self.content_feature = content_output[-1]
