@@ -92,7 +92,7 @@ class NST:
         Load VGG19 model
         :return: The model
         """
-        vgg19 = tf.keras.applications.VGG19(include_top=False, weights='imagenet')
+        vgg19 = tf.keras.applications.VGG19(include_top=False)
         for layer in vgg19.layers:
             layer.trainable = False
         vgg19.save("vgg_base_model.h5")
