@@ -215,7 +215,7 @@ class NST:
                                output for the generated image
         :return: The content cost
         """
-        if (isinstance(content_output, (tf.Tensor, tf.Variable)) and
+        if (not isinstance(content_output, (tf.Tensor, tf.Variable)) or
                 content_output.shape != self.content_feature.shape):
             raise TypeError("content_output must be a tensor of shape {}"
                             .format(self.content_feature.shape))
