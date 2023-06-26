@@ -20,6 +20,8 @@ def definiteness(matrix):
     row, col = matrix.shape
     if not row == col:
         return None
+    if not np.all(matrix == matrix.T):
+        return None
 
     eigen_values, _ = np.linalg.eig(matrix)
 
@@ -34,6 +36,6 @@ def definiteness(matrix):
         return "Negative definite"
     elif max_value == 0 and min_value < 0:
         return "Negative semi-definite"
-    elif max_value > 0 and min_value < 0 and np.all(matrix):
+    elif max_value > 0 > min_value:
         return "Indefinite"
     return None
