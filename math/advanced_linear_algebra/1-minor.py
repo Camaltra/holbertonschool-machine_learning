@@ -43,6 +43,8 @@ def minor(matrix):
     """
     if not isinstance(matrix, list) or len(matrix) == 0:
         raise TypeError("matrix must be a list of lists")
+    if matrix == [[]]:
+        raise ValueError("matrix must be a non-empty square matrix")
     for sub_list in matrix:
         if not isinstance(sub_list, list):
             raise TypeError("matrix must be a list of lists")
