@@ -221,6 +221,32 @@ class NST:
                             .format(self.content_feature.shape))
         return tf.reduce_mean(tf.square(content_output - self.content_feature))
 
+    def total_cost(self, generated_image):
+        """
+        Compute the total cost
+        :param generated_image: The generated image
+        :return: The total cost, content cost, style cost
+        """
+        shape_content = self.content_image.shape
+        if (not isinstance(generated_image, (tf.Variable, tf.Tensor)) or
+                generated_image.shape != shape_content):
+            raise TypeError("generated_image must be a tensor of shape {}"
+                            .format(shape_content))
+
+        generated_image = tf.keras.applications.vgg19.preprocess_input(
+            generated_image * 255)
+
+        generated_output = self.model(generated_image)
+
+        generated_content = generated_output[-1]
+        generated_style = generated_output[:-1]
+        content_cost = self.content_cost(generated_content)
+        style_cost = self.style_cost(generated_style)
+
+        return (self.alpha * content_cost + self.beta * style_cost,
+                content_cost,
+                style_cost)
+
     def compute_grads(self, generated_image):
         """
         Compute the grads for a certain step
@@ -229,5 +255,6 @@ class NST:
         """
         with tf.GradientTape() as tape:
             all_loss = self.total_cost(generated_image)
-        total_loss, _, __ = all_loss
-        return tape.gradient(total_loss, generated_image), *all_loss
+        total_loss, content_loss, style_loss = all_loss
+        return (tape.gradient(total_loss, generated_image), total_loss,
+                content_loss, style_loss)
