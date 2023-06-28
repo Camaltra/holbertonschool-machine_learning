@@ -34,7 +34,7 @@ class MultiNormal:
         """
         if not isinstance(data, np.ndarray):
             raise TypeError("data must be a numpy.ndarray")
-        if data.shape[1] < 2:
+        if len(data.shape) != 2 or data.shape[1] < 2:
             raise ValueError("data must contain multiple data points")
         self.data = data
         self.mean, self.cov = mean_cov(self.data)
