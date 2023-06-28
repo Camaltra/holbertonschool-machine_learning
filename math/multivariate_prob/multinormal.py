@@ -32,9 +32,9 @@ class MultiNormal:
         Init method
         :param data: The data
         """
-        if not isinstance(data, np.ndarray):
-            raise TypeError("data must be a numpy.ndarray")
-        if len(data.shape) != 2 or data.shape[1] < 2:
+        if not isinstance(data, np.ndarray) or len(data.shape) != 2:
+            raise TypeError("data must be a 2D numpy.ndarray")
+        if data.shape[1] < 2:
             raise ValueError("data must contain multiple data points")
         self.data = data
         self.mean, self.cov = mean_cov(self.data)
