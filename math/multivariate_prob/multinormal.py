@@ -28,10 +28,23 @@ def mean_cov(X):
 class MultiNormal:
     """Comments"""
     def __init__(self, data):
+        """
+        Init method
+        :param data: The data
+        """
+        if not isinstance(data, np.ndarray):
+            raise TypeError("data must be a numpy.ndarray")
+        if data.shape[2] < 2:
+            raise ValueError("data must contain multiple data points")
         self.data = data
         self.mean, self.cov = mean_cov(self.data)
 
     def pdf(self, x):
+        """
+        Compute the PDF for MultiNormal probability law
+        :param x: The X values (d, 1)
+        :return: The result of the pdf
+        """
         k = self.mean.shape[0]
         if not isinstance(x, np.ndarray):
             raise TypeError("x must be a numpy.ndarray")
