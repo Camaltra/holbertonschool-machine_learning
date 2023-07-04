@@ -40,5 +40,4 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
             continue
         layers_sequence.append(K.layers.Dropout(1 - keep_prob))
 
-    model = K.Sequential(layers_sequence)
-    return model
+    return K.Sequential(layers_sequence)
