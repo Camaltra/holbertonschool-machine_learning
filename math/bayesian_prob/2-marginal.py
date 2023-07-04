@@ -33,7 +33,7 @@ def marginal(x, n, P, Pr):
         raise TypeError("P must be a 1D numpy.ndarray")
 
     if not isinstance(Pr, np.ndarray) or P.shape != Pr.shape:
-        raise ValueError("P must be a 1D numpy.ndarray")
+        raise ValueError("Pr must be a 1D numpy.ndarray")
 
     if np.any(P > 1) or np.any(P < 0):
         raise ValueError("All values in P must be in the range [0, 1]")
