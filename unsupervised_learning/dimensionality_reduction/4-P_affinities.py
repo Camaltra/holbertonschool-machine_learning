@@ -50,6 +50,15 @@ def _process_binary_search(D, betas, H, tol, i):
 
 
 def P_affinities(X, tol=1e-5, perplexity=30.0):
+    """
+    Compute the symmetric P affinities of a data set
+    :param X: Containing the dataset to be transformed by t-SNE
+    :param tol: The maximum tolerance allowed (inclusive)
+                for the difference in Shannon entropy
+    :param perplexity: The perplexity that all Gaussian
+                       distributions should have
+    :return: The symmetric P affinities
+    """
     D, P, betas, H = P_init(X, perplexity)
 
     n, _ = D.shape
