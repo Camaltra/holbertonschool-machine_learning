@@ -51,4 +51,4 @@ def tsne(X, ndims=2, idims=50, perplexity=30.0, iterations=1000, lr=500):
         if (i + 1) == 100:
             P /= 4
 
-    return Y
+    return Y[-1]
