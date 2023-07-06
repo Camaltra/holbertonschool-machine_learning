@@ -25,4 +25,4 @@ def grads(Y, Pij):
     for i in range(Y.shape[0]):
         dY[i, :] = np.dot((PQij[i, :] * numerator[i, :]).T, (Y - Y[i, :]))
 
-    return dY, Qij
+    return -dY, Qij
