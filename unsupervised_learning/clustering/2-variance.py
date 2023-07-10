@@ -26,7 +26,8 @@ def variance(X, C):
     """
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None
-    if not isinstance(C, np.ndarray) or len(C.shape) != 2:
+    if (not isinstance(C, np.ndarray) or len(C.shape) != 2 or
+            C.shape[1] != X.shape[1]):
         return None
     points_centroids_distance = compute_centroid_distance(X, C)
     cluster_groups = np.min(points_centroids_distance, axis=0)
