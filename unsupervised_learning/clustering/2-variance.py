@@ -24,9 +24,9 @@ def variance(X, C):
     :param C: The cluster center points
     :return: The computed variance
     """
-    if not isinstance(X, np.ndarray):
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None
-    if not isinstance(C, np.ndarray):
+    if not isinstance(C, np.ndarray) or len(C.shape) != 2:
         return None
     points_centroids_distance = compute_centroid_distance(X, C)
     cluster_groups = np.min(points_centroids_distance, axis=0)
