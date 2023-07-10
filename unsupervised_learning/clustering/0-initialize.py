@@ -14,7 +14,9 @@ def initialize(X, k):
     :param k: The number of clusters
     :return: The coordonate of the cluster(s)
     """
-    if not isinstance(X, np.ndarray) or k <= 0:
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+        return None
+    if not isinstance(k, int) or k <= 0:
         return None
 
     X_min = np.min(X, axis=0)
