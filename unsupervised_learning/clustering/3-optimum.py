@@ -19,13 +19,15 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     :param iterations: The number of iterations for the Kmean algos
     :return: The variance and the values for K
     """
-    if not isinstance(X, np.ndarray):
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None
-    _, d = X.shape
-    kmax = kmax or d
-    if kmin <= 0 or kmax <= 0 or kmax < kmin:
+    n, _ = X.shape
+    kmax = kmax or n
+    if not isinstance(kmin, int) or not isinstance(kmax, int):
         return None, None
-    if iterations <= 0:
+    if kmin <= 0 or kmax <= 0 or kmax <= kmin:
+        return None, None
+    if not isinstance(iterations, np.int) or iterations <= 0:
         return None, None
 
     kmean_results = []
