@@ -22,7 +22,7 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None
     n, _ = X.shape
-    kmax = kmax or n
+    kmax = kmax if kmax is not None else n
     if not isinstance(kmin, int) or not isinstance(kmax, int):
         return None, None
     if kmin <= 0 or kmax <= 0 or kmax <= kmin:
