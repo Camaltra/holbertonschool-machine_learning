@@ -19,15 +19,17 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     :param verbose: The verbose the EM aglo
     :return: Best K, Best res and the history of both l and b
     """
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+        return None, None, None, None
+    if type(kmin) != int or kmin < 1:
+        return None, None, None, None
+    if kmax is None:
+        kmax = X.shape[0]
+    if type(kmax) != int or kmax < 1:
+        return None, None, None, None
     if kmax <= kmin:
         return None, None, None, None
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None, None, None, None
-    if not isinstance(kmin, int) or kmin <= 0 or X.shape[0] <= kmin:
-        return None, None, None, None
-    if not isinstance(kmax, int) or kmax <= 0 or X.shape[0] <= kmax:
-        return None, None, None, None
-    if not isinstance(iterations, int) or iterations <= 0:
+    if not isinstance(iterations, int) or iterations < 1:
         return None, None, None, None
     if not isinstance(tol, float) or tol < 0:
         return None, None, None, None
