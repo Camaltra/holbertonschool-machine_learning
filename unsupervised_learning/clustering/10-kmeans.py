@@ -4,7 +4,7 @@
 """useless comment"""
 
 
-from sklearn.cluster import KMeans
+import sklearn.cluster
 
 
 def kmeans(X, k):
@@ -14,5 +14,5 @@ def kmeans(X, k):
     :param k: The number of cluster
     :return: The center of cluster and the labels
     """
-    kmeans = KMeans(k).fit(X)
+    kmeans = sklearn.cluster.KMeans(k).fit(X)
     return kmeans.cluster_centers_, kmeans.labels_
