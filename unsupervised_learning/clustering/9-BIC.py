@@ -19,7 +19,8 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     :param verbose: The verbose for the EM aglo
     :return: Best K, Best res and the history of both l and b
     """
-
+    if kmax <= kmin:
+        return None, None, None, None
     if not isinstance(X, np.ndarray) or X.ndim != 2:
         return None, None, None, None
     if not isinstance(kmin, int) or kmin <= 0 or X.shape[0] <= kmin:
@@ -32,25 +33,30 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         return None, None, None, None
     if not isinstance(verbose, bool):
         return None, None, None, None
-
-    all_likelihood = []
-    all_bic_value = []
-    best_bic_value = 0
     n, d = X.shape
 
+    all_pis = []
+    all_ms = []
+    all_Ss = []
+    all_lkhds = []
+    all_bs = []
+
     for k in range(kmin, kmax + 1):
-        pi, m, S, g, likelihood = expectation_maximization(
-            X, k, iterations, tol, verbose
-        )
+        pi, m, S, g, lkhd = expectation_maximization(X, k, iterations,
+                                                     tol, verbose)
+        all_pis.append(pi)
+        all_ms.append(m)
+        all_Ss.append(S)
+        all_lkhds.append(lkhd)
+        # p: the number of parameters required for the model
+        p = (k * d * (d + 1) / 2) + (d * k) + (k - 1)
+        # b: array containing the BIC value for each cluster size tested
+        b = p * np.log(n) - 2 * lkhd
+        all_bs.append(b)
 
-        p = k * d + k * (d * (d + 1) / 2) + k - 1
-        current_bic_value = p * np.log(n) - 2 * likelihood
+    all_lkhds = np.array(all_lkhds)
+    all_bs = np.array(all_bs)
+    best_k = np.argmin(all_bs)
+    best_result = (all_pis[best_k], all_ms[best_k], all_Ss[best_k])
 
-        all_likelihood.append(likelihood)
-        all_bic_value.append(current_bic_value)
-
-        if current_bic_value > best_bic_value:
-            best_k = k
-            best_result = [pi, m, S]
-
-    return best_k, best_result, all_likelihood, all_bic_value
+    return best_k+1, best_result, all_lkhds, all_bs
