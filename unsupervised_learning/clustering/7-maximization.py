@@ -20,6 +20,10 @@ def maximization(X, g):
         return None, None, None
     if g.shape[1] != X.shape[0]:
         return None, None, None
+    cluster = np.sum(g, axis=0)
+    cluster = np.sum(cluster)
+    if int(cluster) != X.shape[0]:
+        return None, None, None
 
     num_of_coords = X.shape[1]
     num_of_clusters = g.shape[0]
