@@ -34,17 +34,13 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     pi, m, S = initialize(X, k)
     likelihood_history = []
     g, likelihood = 0, 0
+    i = 0
 
     for i in range(iterations):
         g, likelihood = expectation(X, pi, m, S)
 
         if (len(likelihood_history) and
                 np.abs(likelihood_history[-1] - likelihood) <= tol):
-            if verbose:
-                print("Log Likelihood after {} iterations: {}".format(
-                    i,
-                    np.round(likelihood, 5)
-                ))
             break
 
         likelihood_history.append(likelihood)
@@ -57,4 +53,10 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
                 np.round(likelihood, 5)
             ))
 
-    return pi, m, S, g, likelihood_history[-1]
+    if verbose:
+        print("Log Likelihood after {} iterations: {}".format(
+            i,
+            np.round(likelihood, 5)
+        ))
+
+    return pi, m, S, g, likelihood
