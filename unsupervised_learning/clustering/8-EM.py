@@ -57,4 +57,4 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
                 np.round(likelihood, 5)
             ))
 
-    return pi, m, S, g, l
+    return pi, m, S, g, likelihood_history[-1]

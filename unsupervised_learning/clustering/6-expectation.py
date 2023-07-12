@@ -27,9 +27,11 @@ def expectation(X, pi, m, S):
         return None, None
     if m.shape[1] != X.shape[1]:
         return None, None
-    if S.shape[1] != X.shape[1] and S.shape[1] != S.shape[2]:
+    if S.shape[1] != X.shape[1] and X.shape[1] != S.shape[2]:
         return None, None
     if pi.shape[0] != m.shape[0] and pi.shape[0] != S.shape[0]:
+        return None, None
+    if not np.isclose([np.sum(pi)], [1])[0]:
         return None, None
 
     num_of_clust = len(pi)
