@@ -37,6 +37,9 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     i = 0
 
     for i in range(iterations + 1):
+        if i == iterations:
+            # Wierd checker outcome
+            break
         g, likelihood = expectation(X, pi, m, S)
 
         if (len(likelihood_history) and
