@@ -10,13 +10,13 @@ expectation_maximization = __import__('8-EM').expectation_maximization
 
 def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     """
-    Use the BIC algos to find the best K parameter for the EM algo
+    Use the BIC algos to find the best K parameter the EM algo
     :param X: The dataset
     :param kmin: kmin
     :param kmax: kmax
-    :param iterations: The number of iteration for the EM algo
-    :param tol: The tol for the EM algo
-    :param verbose: The verbose for the EM aglo
+    :param iterations: The number of iteration the EM algo
+    :param tol: The tol the EM algo
+    :param verbose: The verbose the EM aglo
     :return: Best K, Best res and the history of both l and b
     """
     if kmax <= kmin:
@@ -48,9 +48,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         all_ms.append(m)
         all_Ss.append(S)
         all_lkhds.append(lkhd)
-        # p: the number of parameters required for the model
         p = (k * d * (d + 1) / 2) + (d * k) + (k - 1)
-        # b: array containing the BIC value for each cluster size tested
         b = p * np.log(n) - 2 * lkhd
         all_bs.append(b)
 
