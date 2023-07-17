@@ -32,7 +32,7 @@ def pdf(X, m, S):
 
     coef = 1 / ((2 * np.pi)**(d / 2) * np.sqrt(np.linalg.det(S)))
     exponetial_arg = np.sum(
-        np.dot(
+        np.matmul(
             (X - m),
             np.linalg.inv(S)
         ) * (X - m),
