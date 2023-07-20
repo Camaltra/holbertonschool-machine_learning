@@ -38,6 +38,6 @@ def viterbi(observation, emission, transition, initial):
         for i in reversed(range(1, num_obs)):
             x[i - 1] = T2[x[i], i]
 
-        return x, np.max(T1[:, num_obs - 1])
+        return list(x), np.max(T1[:, num_obs - 1])
     except Exception:
         return None, None

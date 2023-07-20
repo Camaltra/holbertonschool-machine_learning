@@ -23,7 +23,6 @@ def forward(observation, emission, transition, initial):
         F = np.zeros((hidden_state, num_obs))
 
         F[:, 0] = initial.T * emission[:, observation[0]]
-        print(F[:, 0], F[:, 0].shape)
 
         for i in range(1, num_obs):
             F[:, i] = emission[:, observation[i]] * \
