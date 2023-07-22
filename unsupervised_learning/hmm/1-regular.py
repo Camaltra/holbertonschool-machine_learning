@@ -34,4 +34,4 @@ def regular(P):
 
     steady_state_probabilities = np.real(eigenvectors[:, index].T)
 
-    return steady_state_probabilities / np.sum(steady_state_probabilities)
+    return (steady_state_probabilities / np.sum(steady_state_probabilities)).reshape(1, n)
