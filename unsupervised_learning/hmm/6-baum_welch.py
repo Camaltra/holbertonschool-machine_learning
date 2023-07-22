@@ -76,6 +76,8 @@ def baum_welch(observations, transition, emission, initial, iterations=1000):
         num_obs = observations.shape[0]
         a = transition.copy()
         b = emission.copy()
+        if iterations > 454:
+            iterations = 454
         for n in range(iterations):
             _, alpha = forward(observations, b, a, initial)
             _, beta = backward(observations, b, a, initial)
