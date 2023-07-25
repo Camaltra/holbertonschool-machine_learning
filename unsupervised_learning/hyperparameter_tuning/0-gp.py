@@ -8,7 +8,7 @@ import numpy as np
 
 class GaussianProcess:
     """
-
+    Gaussian Process Class
     """
     def __init__(self, X_init, Y_init, l=1, sigma_f=1):
         """
@@ -35,6 +35,6 @@ class GaussianProcess:
         :param X2: The second Matrix
         :return: The covariance kernel matrix
         """
-        dist = (np.sum(X1 ** 2, axis=1).reshape(-1, 1) +
-                np.sum(X2 ** 2, axis=1) - 2 * np.dot(X1, X2.T))
+        dist = np.sum(X1 ** 2, axis=1).reshape(-1, 1) + \
+               np.sum(X2 ** 2, axis=1) - 2 * np.dot(X1, X2.T)
         return self.sigma_f ** 2 * np.exp(-0.5 / self.l ** 2 * dist)
