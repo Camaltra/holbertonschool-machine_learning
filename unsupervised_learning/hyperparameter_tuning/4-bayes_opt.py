@@ -75,4 +75,4 @@ class BayesianOptimization:
 
         X_next = self.X_s[np.argmax(ei)]
 
-        return X_next, ei
+        return X_next, ei.reshape(-1)
