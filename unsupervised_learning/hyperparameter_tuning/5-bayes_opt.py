@@ -6,7 +6,7 @@
 import numpy as np
 from scipy.stats import norm
 
-GP = __import__("2-gp").GaussianProcess
+GP = __import__('2-gp').GaussianProcess
 
 
 class BayesianOptimization:
