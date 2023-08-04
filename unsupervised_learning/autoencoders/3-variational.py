@@ -84,7 +84,7 @@ class VAE:
         :return: The compiled auto-encoder model
         """
         encoder_input = self.encoder.inputs
-        decoder_output = self.decoder(self.encoder(encoder_input))
+        decoder_output = self.decoder(self.encoder(encoder_input)[2])
         auto_encoder = keras.models.Model(encoder_input, decoder_output)
 
         def loss(x, x_decoded):
