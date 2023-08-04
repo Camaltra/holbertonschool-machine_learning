@@ -47,7 +47,7 @@ class VAE:
         :param hidden_layers: Hidden layers unit values
         :return: The encoder model
         """
-        encoder_input = keras.layers.Input(shape=self.input_dims)
+        encoder_input = keras.layers.Input(shape=(self.input_dims,))
         layer = encoder_input
         for units in hidden_layers:
             layer = keras.layers.Dense(units=units, activation="relu")(layer)
