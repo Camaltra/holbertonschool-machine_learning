@@ -16,7 +16,6 @@ def softmax(x):
     return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)
 
 
-
 class BidirectionalCell:
     """
     Describe an Bidirectionnal RNN Cell
