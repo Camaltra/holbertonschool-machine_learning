@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 
+"""useless comment"""
+
+
 import numpy as np
 
 
@@ -17,7 +20,7 @@ def rnn(rnn_cell, X, h_0):
 
     states = np.zeros((steps + 1, batch_size, hidden_dim))
     states[0] = h_0
-    outputs = np.zeros((steps, batch_size, rnn_cell.output_dim))
+    outputs = np.zeros((steps, batch_size, rnn_cell.Wy.shape[1]))
 
     for step in range(steps):
         current_state, current_output = rnn_cell.forward(

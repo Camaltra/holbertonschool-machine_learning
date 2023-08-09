@@ -8,7 +8,13 @@ import numpy as np
 
 
 def softmax(x):
+    """
+    Softmax function
+    :param x: The x value
+    :return: The computed softmax
+    """
     return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)
+
 
 
 class BidirectionalCell:

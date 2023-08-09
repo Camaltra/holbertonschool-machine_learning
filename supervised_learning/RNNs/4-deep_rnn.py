@@ -19,7 +19,7 @@ def deep_rnn(rnn_cells, X, h_0):
     steps, batch_size, word_dim = X.shape
     _, __, hidden_dim = h_0.shape
     states = np.zeros((steps + 1, num_of_rnn, batch_size, hidden_dim))
-    outputs = np.zeros((steps, batch_size, rnn_cells[-1].output_dim))
+    outputs = np.zeros((steps, batch_size, rnn_cells[-1].Wy.shape[1]))
     states[0] = h_0
 
     for step in range(steps):
