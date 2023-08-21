@@ -80,7 +80,10 @@ class CountVectorizer:
         if self.vocab is None:
             sort_values = True
             self.vocab = self.create_vocab(X)
-        self.processed_formatted_vocab = self.format_vocab(self.vocab, sort_values)
+        self.processed_formatted_vocab = self.format_vocab(
+            self.vocab,
+            sort_values
+        )
         self.features = list(self.processed_formatted_vocab.keys())
         return self
 
