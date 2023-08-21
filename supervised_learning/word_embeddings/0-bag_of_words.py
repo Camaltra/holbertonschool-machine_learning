@@ -40,9 +40,11 @@ class CountVectorizer:
         :param sort_values: Choose to sort or not value (Alphabetic order)
         :return: The formatted vocab
         """
-        if sort_values:
-            return OrderedDict({word: idx for idx, word in enumerate(sorted(vocab))})
-        return OrderedDict({word: idx for idx, word in enumerate(vocab)})
+        vocab = sorted(vocab) if sort_values else vocab
+        formated_vocab = OrderedDict()
+        for idx, value in enumerate(vocab):
+            formated_vocab[value] = idx
+        return formated_vocab
 
     def process_sentence(self, sentence):
         """
