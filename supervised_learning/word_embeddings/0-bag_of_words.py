@@ -37,6 +37,7 @@ class CountVectorizer:
         """
         Fomart the vocab in a dict {word: idx}
         :param vocab: The vocab
+        :param sort_values: Choose to sort or not value (Alphabetic order)
         :return: The formatted vocab
         """
         if sort_values:
