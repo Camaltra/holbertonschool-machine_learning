@@ -5,6 +5,7 @@
 
 import re
 import numpy as np
+from collections import OrderedDict
 
 
 WORD_DELIMITER = r"""[,.!?#$%&'*+,-./:;<>=@\^_`|~"(){} ]+"""
@@ -39,8 +40,8 @@ class CountVectorizer:
         :return: The formatted vocab
         """
         if sort_values:
-            return {word: idx for idx, word in enumerate(sorted(vocab))}
-        return {word: idx for idx, word in enumerate(vocab)}
+            return OrderedDict({word: idx for idx, word in enumerate(sorted(vocab))})
+        return OrderedDict({word: idx for idx, word in enumerate(vocab)})
 
     def process_sentence(self, sentence):
         """
