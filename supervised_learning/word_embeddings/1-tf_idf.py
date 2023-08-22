@@ -17,4 +17,4 @@ def tf_idf(sentences, vocab=None):
     tf_idf_vectorizer = TfidfVectorizer(vocabulary=vocab)
     output = tf_idf_vectorizer.fit_transform(sentences)
 
-    return output.toarray(), list(tf_idf_vectorizer.vocabulary_.keys())
+    return output.toarray(), tf_idf_vectorizer.get_feature_names()
