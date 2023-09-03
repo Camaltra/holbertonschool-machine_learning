@@ -4,7 +4,6 @@
 
 
 import tensorflow as tf
-import math
 
 
 def sdp_attention(Q, K, V, mask=None):
@@ -19,12 +18,12 @@ def sdp_attention(Q, K, V, mask=None):
     if mask is not None:
         mask *= -1e9
         weight = tf.math.softmax(
-            (tf.matmul(Q, K, transpose_b=True) + mask) / math.sqrt(Q.shape[-1])
+            (tf.matmul(Q, K, transpose_b=True) + mask) / tf.math.sqrt(Q.shape[-1])
         )
 
     else:
         weight = tf.math.softmax(
-            tf.matmul(Q, K, transpose_b=True) / math.sqrt(Q.shape[-1])
+            tf.matmul(Q, K, transpose_b=True) / tf.math.sqrt(Q.shape[-1])
         )
 
     attention = tf.matmul(weight, V)

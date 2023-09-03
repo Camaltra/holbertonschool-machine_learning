@@ -34,7 +34,9 @@ class RNNEncoder(tf.keras.layers.Layer):
         Init hte first hidden state (tensor)
         :return: The init tensor
         """
-        return tf.zeros([self.batch, self.units], tf.float32)
+        initializer = tf.keras.initializers.Zeros()
+        values = initializer(shape=(self.batch, self.units))
+        return values
 
     def call(self, x, initial):
         """

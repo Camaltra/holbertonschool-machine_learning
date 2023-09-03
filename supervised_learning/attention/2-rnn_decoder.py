@@ -41,18 +41,13 @@ class RNNDecoder(tf.keras.layers.Layer):
         :param hidden_states: The encoder hidden states
         :return: The output of the layer, and the hidden state
         """
-        self_attention = SelfAttention(self.units)
-        attention_context, attention_weight = self_attention(
-            s_prev,
-            hidden_states
-        )
-        attention_context = attention_context[:, np.newaxis]
-        x_embedded = self.embedding(x)
-        x_embedded_context_concat = np.concatenate(
-            (attention_context, x_embedded), axis=-1
-        )
+        context_vector, attention_weights = self.attention(s_prev,
+                                                           hidden_states)
+        x = self.embedding(x)
+        x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
 
-        output, hidden = self.gru(x_embedded_context_concat)
-        output = tf.reshape(output, (-1, output.shape[-1]))
-        output = self.F(output)
-        return output, hidden
+        output, state = self.gru(x)
+        output = tf.reshape(output, (-1, output.shape[2]))
+
+        x = self.F(output)
+        return x, state

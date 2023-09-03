@@ -5,8 +5,8 @@
 
 import tensorflow as tf
 
-positional_encoding = __import__("4-positional_encoding").positional_encoding
-DecoderBlock = __import__("8-transformer_decoder_block").DecoderBlock
+positional_encoding = __import__('4-positional_encoding').positional_encoding
+DecoderBlock = __import__('8-transformer_decoder_block').DecoderBlock
 
 
 class Decoder(tf.keras.layers.Layer):

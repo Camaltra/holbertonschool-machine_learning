@@ -5,7 +5,7 @@
 
 import tensorflow as tf
 
-MultiHeadAttention = __import__("6-multihead_attention").MultiHeadAttention
+MultiHeadAttention = __import__('6-multihead_attention').MultiHeadAttention
 
 
 class DecoderBlock(tf.keras.layers.Layer):
