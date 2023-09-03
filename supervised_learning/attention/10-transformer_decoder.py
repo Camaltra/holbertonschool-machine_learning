@@ -51,7 +51,9 @@ class Decoder(tf.keras.layers.Layer):
         :param padding_mask: The second mask if any
         :return:
         """
-        x = self.embedding(x) + self.positional_encoding[: x.shape[1]]
+        x = self.embedding(x)
+        x *= tf.math.sqrt(tf.cast(self.dm, tf.float32))
+        x += self.positional_encoding[: x.shape[1]]
         x = self.dropout(x, training=training)
         for dblock in self.blocks:
             x = dblock(
