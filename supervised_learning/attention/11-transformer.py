@@ -10,6 +10,7 @@ Decoder = __import__('10-transformer_decoder').Decoder
 
 
 class Transformer(tf.keras.layers.Layer):
+    """Transformer"""
     def __init__(
         self,
         N,
@@ -43,7 +44,7 @@ class Transformer(tf.keras.layers.Layer):
             max_seq_input,
             drop_rate
         )
-        self.encoder = Decoder(
+        self.decoder = Decoder(
             N, dm, h, hidden, target_vocab, max_seq_target, drop_rate
         )
         self.linear = tf.keras.layers.Dense(target_vocab)
