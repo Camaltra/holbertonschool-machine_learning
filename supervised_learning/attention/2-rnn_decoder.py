@@ -31,6 +31,7 @@ class RNNDecoder(tf.keras.layers.Layer):
             recurrent_initializer="glorot_uniform",
         )
         self.F = tf.keras.layers.Dense(vocab)
+        self.attention = SelfAttention(self.units)
 
     def call(self, x, s_prev, hidden_states):
         """
