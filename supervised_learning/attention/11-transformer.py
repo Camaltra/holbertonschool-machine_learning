@@ -35,6 +35,7 @@ class Transformer(tf.keras.layers.Layer):
         :param max_seq_target: The max_seq_target
         :param drop_rate: The drop rate
         """
+        super().__init__()
         self.encoder = Encoder(
             N,
             dm,
