@@ -29,7 +29,7 @@ class RNNDecoder(tf.keras.layers.Layer):
             units,
             return_sequences=True,
             return_state=True,
-            kernel_initializer="glorot_uniform",
+            recurrent_initializer="glorot_uniform",
         )
         self.F = tf.keras.layers.Dense(vocab)
 
