@@ -17,7 +17,7 @@ def availableShips(passengerCount):
             passengers = starship.get("passengers")
             if passengers is None or passengers in ["n/a", "unknown"]:
                 continue
-            if int(float(passengers.replace(",", "."))) < passengerCount:
+            if int(passengers.replace(",", "")) < passengerCount:
                 continue
             available_ships.append(starship.get("name"))
         data = requests.get(data.get("next")).json()
