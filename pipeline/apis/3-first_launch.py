@@ -14,6 +14,11 @@ BASE_URL_LAUNCHPAD = "https://api.spacexdata.com/v4/launchpads/"
 
 
 def get_next_launch(api_response):
+    """
+    Holberton is a mess
+    :param api_response:
+    :return:
+    """
     dates = [x["date_unix"] for x in api_response]
     index = dates.index(min(dates))
     return response[index]
